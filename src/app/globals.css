@@ -1,9 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-* {
-  transition: 0.3s;
+
+html {
+  @apply text-[20px];
 }
+
+#main-container {
+  width: calc(100% - 4.5rem);
+}
+
+/* * {
+  transition: 0.3s;
+} */
+
 .loader-background {
   height: 100%;
   width: 100vw;
