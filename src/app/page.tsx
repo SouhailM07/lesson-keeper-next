@@ -1,7 +1,5 @@
+import MainPage from "@/components/pages/MainPage/MainPage";
+
 export default function Home() {
-  return (
-    <>
-      <main>sb</main>
-    </>
-  );
+  return <MainPage />;
 }

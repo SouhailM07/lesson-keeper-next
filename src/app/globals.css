@@ -6,8 +6,24 @@ html {
   @apply text-[20px];
 }
 
+.new-h-screen {
+  height: calc(100vh - 3.8rem);
+}
+
 #main-container {
   width: calc(100% - 4.5rem);
+}
+
+.b {
+  @apply border-2 border-green-500;
+}
+
+.flexCenter {
+  @apply flex justify-center items-center;
+}
+
+.flexBetween {
+  @apply flex justify-between items-center;
 }
 
 /* * {
