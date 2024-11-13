@@ -1,0 +1,18 @@
+###
+GET http://localhost:3000/api/seasons
+###
+POST http://localhost:3000/api/seasons
+Content-Type: application/json
+
+{
+    "name":"shadow season 1"
+}
+###
+PUT http://localhost:3000/api/seasons
+
+{
+    "name":"test 01",
+    "modules":[]
+}
+###
+DELETE http://localhost:3000/api/seasons?id=6733214d4b0cb318a14aae73    

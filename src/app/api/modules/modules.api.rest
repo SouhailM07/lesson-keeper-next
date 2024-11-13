@@ -1,0 +1,18 @@
+###
+GET http://localhost:3000/api/modules?id=67347c2baa40e4b6c85c116d
+###
+POST http://localhost:3000/api/modules
+Content-Type: application/json
+
+{
+    "name":"algo warrior 1",
+    "mentor_name":"shadow warrior 1",
+    "seasonBy":"67347c08aa40e4b6c85c1167"
+}
+
+    # name: String,
+    # mentor_name: { type: String, required: false, default: null },
+    # lessons: [{ type: Schema.Types.ObjectId, ref: "Lesson" }],
+    # season: { type: Schema.Types.ObjectId, ref: "Season" },
+###
+DELETE http://localhost:3000/api/modules?id=6733bf53c80b29efece7bafd
