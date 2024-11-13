@@ -2,6 +2,7 @@ import "./globals.css";
 import { Poppins } from "next/font/google";
 import MySidebar from "@/components/organisms/MySidebar/MySidebar";
 import { ClerkProvider } from "@clerk/nextjs";
+import DontRenderWhen from "@/components/atoms/DontRenderWhen/DontRenderWhen";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -18,7 +19,9 @@ export default function RootLayout({ children }) {
       <html lang="en">
         <body className={poppins.className}>
           <div>{children}</div>
-          <MySidebar />
+          <DontRenderWhen route={["/signIn"]}>
+            <MySidebar />
+          </DontRenderWhen>
         </body>
       </html>
     </ClerkProvider>

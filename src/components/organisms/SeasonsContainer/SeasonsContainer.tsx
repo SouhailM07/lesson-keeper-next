@@ -3,18 +3,15 @@ import "./styles.css";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAuth } from "@clerk/nextjs";
-import { useEffect } from "react";
 import PageTitle from "@/components/atoms/PageTitle/PageTitle";
 import NotSigned from "@/components/atoms/NotSigned/NotSigned";
 
 export default function SeasonsContainer() {
   const { isSignedIn } = useAuth();
-  useEffect(() => {
-    console.log(isSignedIn);
-  }, []);
+
   if (!isSignedIn) return <NotSigned />;
   return (
-    <section className="space-y-3 h-[25rem] p-[2rem]">
+    <section className="space-y-3 h-[25rem] py-[1rem] px-[2rem]">
       <PageTitle title="Seasons" />
       <ul className="flex gap-x-[1rem]">
         <RenderItem
