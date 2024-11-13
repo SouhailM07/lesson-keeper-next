@@ -34,7 +34,6 @@ export default function MySidebar() {
     },
     { icon: faFilter, labelTxt: "Filter Books", innerTest: UiTEST() },
     { icon: faPalette, labelTxt: "Themes" },
-    { icon: faLanguage, labelTxt: "Languages" },
     { icon: faUser, labelTxt: "Profile" },
     { icon: faSun, labelTxt: "Dark Mode" },
     {
