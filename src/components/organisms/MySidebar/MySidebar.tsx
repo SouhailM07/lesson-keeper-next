@@ -1,12 +1,13 @@
 "use client";
+
 import MyPopover from "@/components/atoms/MyPopover/MyPopover";
 import { cn } from "@/lib/utils";
 import sidebarStore from "@/zustand/sidebar.store";
 import {
   faBars,
+  faCircleQuestion,
   faFilter,
   faGear,
-  faLanguage,
   faPalette,
   faSun,
   faUser,
@@ -36,6 +37,7 @@ export default function MySidebar() {
     { icon: faPalette, labelTxt: "Themes" },
     { icon: faUser, labelTxt: "Profile" },
     { icon: faSun, labelTxt: "Dark Mode" },
+    { icon: faCircleQuestion, labelTxt: "Information" },
     {
       icon: faGear,
       labelTxt: "Admin Panel",
@@ -55,6 +57,7 @@ export default function MySidebar() {
       >
         {sideBarOptions.map((e, i) => (
           <li
+            title={e.labelTxt}
             key={i}
             className={`${toggleSidebar && "w-full"} flex items-center`}
           >
