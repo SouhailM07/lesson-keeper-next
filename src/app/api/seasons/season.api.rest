@@ -1,11 +1,12 @@
 ###
-GET http://localhost:3000/api/seasons
+GET http://localhost:3000/api/seasons?id=673483b643fd72cfce5262f3
 ###
 POST http://localhost:3000/api/seasons
 Content-Type: application/json
 
 {
-    "name":"shadow season 1"
+    "name":"shadow season 1",
+    "userBy":"6734839743fd72cfce5262ef"
 }
 ###
 PUT http://localhost:3000/api/seasons

@@ -1,5 +1,5 @@
 ###
-GET http://localhost:3000/api/modules?id=67347c2baa40e4b6c85c116d
+GET http://localhost:3000/api/modules?id=673483f343fd72cfce5262fb
 ###
 POST http://localhost:3000/api/modules
 Content-Type: application/json
@@ -7,7 +7,7 @@ Content-Type: application/json
 {
     "name":"algo warrior 1",
     "mentor_name":"shadow warrior 1",
-    "seasonBy":"67347c08aa40e4b6c85c1167"
+    "seasonBy":"673483b643fd72cfce5262f3"
 }
 
     # name: String,
