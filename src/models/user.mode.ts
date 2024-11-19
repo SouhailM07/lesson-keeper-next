@@ -7,8 +7,12 @@ interface IUser extends Document {
 }
 
 const userSchema = new Schema<IUser>({
-  clerkId: String,
-  sidebar_preferred_direction: { type: Boolean, default: false },
+  clerkId: { type: String, required: true, unique: true },
+  sidebar_preferred_direction: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
   personal_themes: { type: Schema.Types.Mixed, default: [] },
 });
 

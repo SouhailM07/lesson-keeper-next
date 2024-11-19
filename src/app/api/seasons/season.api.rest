@@ -1,12 +1,14 @@
 ###
-GET http://localhost:3000/api/seasons?id=673483b643fd72cfce5262f3
+GET http://localhost:3000/api/seasons?userId=673b1085a65a0d8f01932814
+###
+GET http://localhost:3000/api/seasons?id=673ca0a3a30067c65c9c326d
 ###
 POST http://localhost:3000/api/seasons
 Content-Type: application/json
 
 {
-    "name":"shadow season 1",
-    "userBy":"6734839743fd72cfce5262ef"
+    "name":"shadow season 3",
+    "userBy":"673b1085a65a0d8f01932814"
 }
 ###
 PUT http://localhost:3000/api/seasons
@@ -16,4 +18,4 @@ PUT http://localhost:3000/api/seasons
     "modules":[]
 }
 ###
-DELETE http://localhost:3000/api/seasons?id=6733214d4b0cb318a14aae73    
+DELETE http://localhost:3000/api/seasons?id=673483b643fd72cfce5262f3

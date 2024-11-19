@@ -20,6 +20,14 @@ export async function GET(req: NextRequest) {
       }
       return handleResponse(selectedSeason, 200);
     }
+    const userId = queryParam(req, "userId");
+    if (userId) {
+      const userSeasons = await Season.find({ userBy: userId });
+      if (!userSeasons.length) {
+        return handleResponse("User id does not exist", 404);
+      }
+      return handleResponse(userSeasons, 200);
+    }
     const seasons = await Season.find({});
     return handleResponse(seasons, 200);
   } catch (error) {
