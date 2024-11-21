@@ -6,3 +6,15 @@ export interface formFieldRenderItem_t
   name: string;
   formLabel: string;
 }
+
+interface ResponseMessage {
+  msg: string;
+  status: number;
+}
+
+export interface ResponseMessages {
+  not_found: ResponseMessage;
+  create_item: ResponseMessage;
+  update_item: ResponseMessage;
+  delete_item: ResponseMessage;
+}

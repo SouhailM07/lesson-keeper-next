@@ -9,7 +9,7 @@ import NotSigned from "@/components/atoms/NotSigned/NotSigned";
 export default function SeasonsContainer() {
   const { isSignedIn } = useAuth();
 
-  // if (!isSignedIn) return <NotSigned />;
+  if (!isSignedIn) return <NotSigned />;
   return (
     <section className="space-y-3 h-[25rem] py-[1rem] px-[2rem]">
       <PageTitle title="Seasons" />

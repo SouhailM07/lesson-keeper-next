@@ -1,4 +1,6 @@
 ###
+GET http://localhost:3000/api/seasons
+###
 GET http://localhost:3000/api/seasons?userId=673b1085a65a0d8f01932814
 ###
 GET http://localhost:3000/api/seasons?id=673ca0a3a30067c65c9c326d

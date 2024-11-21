@@ -13,12 +13,19 @@ const handle505 = (error) => handleResponse(error, 500);
 export async function GET(req: NextRequest) {
   try {
     const id = queryParam(req, "id");
+    const seasonId = queryParam(req, "seasonId");
     if (id) {
       const selectedModule = await Module.findById(id).populate("seasonBy");
       if (!selectedModule) {
         return handle404();
       }
       return handleResponse(selectedModule, 200);
+    } else if (seasonId) {
+      const seasonModules = await Module.find({ seasonBy: seasonId });
+      if (!seasonModules) {
+        return handleResponse("Season Id does not Exist", 404);
+      }
+      return handleResponse(seasonModules, 200);
     }
     const modules = await Module.find({});
     return handleResponse(modules, 200);
