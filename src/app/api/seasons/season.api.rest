@@ -13,11 +13,10 @@ Content-Type: application/json
     "userBy":"673b1085a65a0d8f01932814"
 }
 ###
-PUT http://localhost:3000/api/seasons
+PUT http://localhost:3000/api/seasons?id=6740cbce89f1876e5d08c154
 
 {
-    "name":"test 01",
-    "modules":[]
+    "name":"test 02",
 }
 ###
 DELETE http://localhost:3000/api/seasons?id=673483b643fd72cfce5262f3

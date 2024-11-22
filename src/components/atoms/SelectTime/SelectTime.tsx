@@ -18,7 +18,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
+} from "../../ui/form";
 
 export default function SelectTime({ form, formLabel, name }) {
   const [date, setDate] = useState<DateRange | undefined>({

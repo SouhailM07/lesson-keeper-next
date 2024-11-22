@@ -3,6 +3,13 @@ GET http://localhost:3000/api/modules
 ###
 GET http://localhost:3000/api/modules?id=673483f343fd72cfce5262fb
 ###
+PUT http://localhost:3000/api/modules?id=673483f343fd72cfce5262fb
+Content-Type: application/json
+
+{
+    "name":"shadow warrior 27"
+}
+###
 POST http://localhost:3000/api/modules
 Content-Type: application/json
 

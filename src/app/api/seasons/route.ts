@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   try {
     const id = queryParam(req, "id");
-    const values = req.json();
+    const values = await req.json();
     const updatedSeason = await Season.findByIdAndUpdate(id, values);
     if (!updatedSeason) {
       return handle404();
