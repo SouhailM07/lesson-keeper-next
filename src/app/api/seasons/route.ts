@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
     }
     const userId = queryParam(req, "userId");
     if (userId) {
-      const userSeasons = await Season.find({ userBy: userId });
+      const userSeasons = await Season.find({ userId });
       if (!userSeasons.length) {
         return handleResponse("User id does not exist", 404);
       }

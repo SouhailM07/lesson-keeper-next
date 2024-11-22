@@ -26,7 +26,7 @@ export default function FormFieldRenderItem({
           <FormControl>
             <Input {...props} {...field} />
           </FormControl>
-          <FormMessage className="text-[0.7rem] absolute  " />
+          <FormMessage className="text-[0.7rem]" />
         </FormItem>
       )}
     />
