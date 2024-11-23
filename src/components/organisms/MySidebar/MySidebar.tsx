@@ -3,6 +3,7 @@
 import MyPopover from "@/components/atoms/MyPopover/MyPopover";
 import { cn } from "@/lib/utils";
 import sidebarStore from "@/zustand/sidebar.store";
+import { useAuth, UserButton, useUser } from "@clerk/nextjs";
 import {
   faBars,
   faCircleQuestion,
@@ -33,9 +34,9 @@ export default function MySidebar() {
       onClick: () => editToggleSidebar(!toggleSidebar),
       labelTxt: "Sidebar",
     },
+    { icon: faUser, labelTxt: "Profile" },
     { icon: faFilter, labelTxt: "Filter Books", innerTest: UiTEST() },
     { icon: faPalette, labelTxt: "Themes" },
-    { icon: faUser, labelTxt: "Profile" },
     { icon: faSun, labelTxt: "Dark Mode" },
     { icon: faCircleQuestion, labelTxt: "Information" },
     {
@@ -76,6 +77,18 @@ const SidebarOption = ({
   children,
 }: ISideBarOptions) => {
   const { toggleSidebar } = sidebarStore((state) => state);
+  const { isSignedIn, isLoaded } = useAuth();
+  if (isSignedIn && isLoaded && icon == faUser) {
+    return (
+      <div
+        className={`border-2 aspect-square size-[2.2rem] rounded-md flexCenter  border-black ${
+          toggleSidebar && "size-[0.9rem]"
+        }`}
+      >
+        <UserButton />
+      </div>
+    );
+  }
   return (
     <>
       <FontAwesomeIcon

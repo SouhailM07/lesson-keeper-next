@@ -1,5 +1,3 @@
-import { UserButton } from "@clerk/nextjs";
-
 export default function Navbar() {
   interface ISchoolData {
     label: string;
@@ -13,7 +11,6 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 bg-black text-white h-[3.8rem] px-[1rem] ">
       <nav className="h-full flexBetween">
-        <UserButton />
         <h1 className="text-[1.4rem]">Lessons Keeper</h1>
         <ul className="flex gap-[1rem]">
           {schoolData.map((e, i) => (

@@ -5,13 +5,10 @@ import SeasonsProvider from "@/context/SeasonsContext/SeasonsContext";
 
 export default function MainPage() {
   return (
-    <div id="main-container">
-      <Navbar />
-      <main>
-        <SeasonsProvider>
-          <SeasonsContainer />
-        </SeasonsProvider>
-      </main>
-    </div>
+    <main>
+      <SeasonsProvider>
+        <SeasonsContainer />
+      </SeasonsProvider>
+    </main>
   );
 }
