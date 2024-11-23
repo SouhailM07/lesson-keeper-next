@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MyDialog from "../MyDialog/MyDialog";
 import ModulesForm from "@/components/molecules/ModulesForm/ModulesForm";
 import { useModulesApiContext } from "@/context/ModulesApiContext/ModulesApiContext";
+import LessonsForm from "@/components/molecules/LessonsForm/LessonsForm";
 
 export enum AddNew_e {
   Section = "SECTION",
@@ -19,6 +20,8 @@ export default function AddNewItem({ addNew }: { addNew: AddNew_e }) {
         return <AddNewSeason />;
       case AddNew_e.Module:
         return <AddNewModule />;
+      case AddNew_e.Lesson:
+        return <AddNewLesson />;
       default:
         return <div>Item not found</div>;
     }
@@ -60,6 +63,21 @@ const AddNewModule = () => {
         handleOnSubmit={handleOnSubmit__Create}
         defaultValues={{ name: "", mentor_name: "" }}
       />
+    </MyDialog>
+  );
+};
+
+const AddNewLesson = () => {
+  return (
+    <MyDialog
+      title="New Lesson"
+      trigger={
+        <button className="p-[1rem] mx-auto w-[50rem] border rounded-sm border-gray-500 h-[2.6rem] flexCenter">
+          <FontAwesomeIcon icon={faPlus} />
+        </button>
+      }
+    >
+      <LessonsForm />
     </MyDialog>
   );
 };
