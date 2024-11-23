@@ -1,6 +1,6 @@
 "use client";
 import "./styles.css";
-import { faEllipsisVertical, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAuth, useUser } from "@clerk/nextjs";
 import PageTitle from "@/components/atoms/PageTitle/PageTitle";
@@ -12,6 +12,7 @@ import { useSeasonsContext } from "@/context/SeasonsContext/SeasonsContext";
 import SeasonsForm from "@/components/molecules/SeasonsForm/SeasonsForm";
 import Link from "next/link";
 import AddNewItem, { AddNew_e } from "@/components/atoms/AddNewItem/AddNewItem";
+import SeasonRenderItem from "@/components/atoms/SeasonRenderItem/SeasonRenderItem";
 
 export default function SeasonsContainer() {
   const { isSignedIn } = useAuth();
@@ -30,7 +31,7 @@ export default function SeasonsContainer() {
       <ul className="flex gap-[1rem] flex-wrap ">
         {seasons.map((e, i) => (
           <li key={i}>
-            <RenderItem
+            <SeasonRenderItem
               id={e._id}
               itemId={e._id}
               title={e.name}
@@ -44,52 +45,3 @@ export default function SeasonsContainer() {
     </section>
   );
 }
-
-const RenderItem = ({
-  itemId,
-  id,
-  title,
-  modulesLen,
-  duration,
-}: {
-  id: string;
-  title: string;
-  modulesLen: number;
-  duration: any;
-  itemId?: any;
-}) => {
-  const { handleOnSubmit__Edit, fetch_delete_season }: any =
-    useSeasonsContext();
-
-  return (
-    <div className="flex flex-col">
-      <Link href={`season/${id}`}>
-        <button className="border-2 flex flex-col px-[1.2rem] py-3 justify-between items-center  border-gray-600 h-[9rem] rounded-md aspect-video">
-          <div className="flexBetween w-full h-[4rem] px-2">
-            <h1 className="text-[1.7rem] font-medium ">{title}</h1>
-            <div className="flex text-start flex-col">
-              <span>Modules : {modulesLen}</span>
-              <span>Lessons : {modulesLen}</span>
-            </div>
-          </div>
-          <p className="text-gray-600 text-[0.8rem] ">{duration}</p>
-        </button>
-      </Link>
-      <MyDialog
-        title="Edit Season"
-        trigger={
-          <button className="absolute self-end text-[1.2rem] text-red-500 p-2">
-            <FontAwesomeIcon icon={faEllipsisVertical} />
-          </button>
-        }
-      >
-        <SeasonsForm
-          itemId={itemId}
-          handleOnSubmit={handleOnSubmit__Edit}
-          handleDelete={fetch_delete_season}
-          defaultValues={{ name: title, duration }}
-        />
-      </MyDialog>
-    </div>
-  );
-};
