@@ -8,7 +8,6 @@ import { Form } from "@/components/ui/form";
 import FormFieldRenderItem from "@/components/atoms/FormFieldRenderItem/FormFieldRenderItem";
 import { formFieldRenderItem_t } from "@/types";
 import SelectTime from "@/components/atoms/SelectTime/SelectTime";
-import { useUser } from "@clerk/nextjs";
 import { DialogClose } from "@/components/ui/dialog";
 import { useRef } from "react";
 
@@ -23,9 +22,9 @@ export default function SeasonForm({
   handleOnSubmit,
   defaultValues,
   itemId = null,
+  handleDelete = (itemId: string) => {},
 }) {
   // 1. Define your form.
-  const { user } = useUser();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -35,9 +34,8 @@ export default function SeasonForm({
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    let selectedId = itemId ? itemId : user?.id;
 
-    await handleOnSubmit(values, selectedId);
+    await handleOnSubmit(values, itemId);
   };
   const inputs: formFieldRenderItem_t[] = [
     { name: "name", formLabel: "Season Name" },
@@ -55,7 +53,14 @@ export default function SeasonForm({
           />
         ))}
         <SelectTime form={form} name="duration" formLabel="Duration" />
-        <Button type="submit">Submit</Button>
+        <div className="flexBetween">
+          <Button type="submit">{itemId ? "Update" : "Submit"}</Button>
+          {itemId && (
+            <Button onClick={() => handleDelete(itemId)} type="button">
+              Delete
+            </Button>
+          )}
+        </div>
         <DialogClose ref={closeDialogRef} />
       </form>
     </Form>

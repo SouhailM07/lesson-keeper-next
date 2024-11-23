@@ -10,7 +10,6 @@ import { useEffect } from "react";
 import seasonsStore from "@/zustand/seasons.store";
 import { useSeasonsContext } from "@/context/SeasonsContext/SeasonsContext";
 import SeasonsForm from "@/components/molecules/SeasonsForm/SeasonsForm";
-import { useSeasonsFormContext } from "@/context/SeasonsFormContext/SeasonsFormContext";
 
 export default function SeasonsContainer() {
   const { isSignedIn } = useAuth();
@@ -54,7 +53,8 @@ const RenderItem = ({
   duration: any;
   itemId?: any;
 }) => {
-  const { handleOnSubmit__Edit }: any = useSeasonsFormContext();
+  const { handleOnSubmit__Edit, fetch_delete_season }: any =
+    useSeasonsContext();
   return (
     <div className="flex flex-col">
       <button className="border-2 flex flex-col px-[1.2rem] py-3 justify-between items-center  border-gray-600 h-[9rem] rounded-md aspect-video">
@@ -78,6 +78,7 @@ const RenderItem = ({
         <SeasonsForm
           itemId={itemId}
           handleOnSubmit={handleOnSubmit__Edit}
+          handleDelete={fetch_delete_season}
           defaultValues={{ name: title, duration }}
         />
       </MyDialog>
@@ -86,7 +87,7 @@ const RenderItem = ({
 };
 
 const PlusSeason = () => {
-  const { handleOnSubmit__Create }: any = useSeasonsFormContext();
+  const { handleOnSubmit__Create }: any = useSeasonsContext();
   return (
     <MyDialog
       title="New Season"
