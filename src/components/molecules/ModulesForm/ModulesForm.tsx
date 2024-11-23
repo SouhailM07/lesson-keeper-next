@@ -29,7 +29,7 @@ export default function ModulesForm({
   handleOnSubmit,
   defaultValues,
   itemId = null,
-  handleDelete = () => {},
+  handleDelete = (itemId: string) => {},
 }) {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -52,7 +52,14 @@ export default function ModulesForm({
         {inputs.map((e, i) => (
           <FormFieldRenderItem key={i} {...e} form={form} />
         ))}
-        <Button type="submit">Submit</Button>
+        <div className="flexBetween">
+          <Button type="submit">{itemId ? "Update" : "Submit"}</Button>
+          {itemId && (
+            <Button onClick={() => handleDelete(itemId)} type="button">
+              Delete
+            </Button>
+          )}
+        </div>
       </form>
     </Form>
   );

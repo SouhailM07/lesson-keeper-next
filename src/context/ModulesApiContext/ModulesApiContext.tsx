@@ -8,6 +8,7 @@ const ModulesApiContext = createContext({});
 
 export default function ModulesApiContextProvider({ seasonId, children }) {
   const { editModules } = modulesStore();
+
   const fetch_get_modules = async () => {
     try {
       let res = await axios.get(
@@ -31,9 +32,36 @@ export default function ModulesApiContextProvider({ seasonId, children }) {
       console.log(error);
     }
   };
+  const handleOnSubmit__Edit = async (values, itemId) => {
+    try {
+      const res = await axios.put(
+        `${API_APP_URL}/api/modules?id=${itemId}`,
+        values
+      );
+      await fetch_get_modules();
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const fetch_delete_module = async (itemId) => {
+    try {
+      let res = await axios.delete(`${API_APP_URL}/api/modules?id=${itemId}`);
+      await fetch_get_modules();
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <ModulesApiContext.Provider
-      value={{ seasonId, fetch_get_modules, handleOnSubmit__Create }}
+      value={{
+        seasonId,
+        fetch_get_modules,
+        handleOnSubmit__Create,
+        handleOnSubmit__Edit,
+        fetch_delete_module,
+      }}
     >
       {children}
     </ModulesApiContext.Provider>
