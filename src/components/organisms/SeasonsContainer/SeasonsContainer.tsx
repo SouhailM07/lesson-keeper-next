@@ -11,6 +11,7 @@ import seasonsStore from "@/zustand/seasons.store";
 import { useSeasonsContext } from "@/context/SeasonsContext/SeasonsContext";
 import SeasonsForm from "@/components/molecules/SeasonsForm/SeasonsForm";
 import Link from "next/link";
+import AddNewItem, { AddNew_e } from "@/components/atoms/AddNewItem/AddNewItem";
 
 export default function SeasonsContainer() {
   const { isSignedIn } = useAuth();
@@ -24,7 +25,7 @@ export default function SeasonsContainer() {
 
   if (!isSignedIn) return <NotSigned />;
   return (
-    <section className="space-y-3 h-[25rem] py-[1rem] px-[2rem]">
+    <section className="section-container">
       <PageTitle title="Seasons" />
       <ul className="flex gap-[1rem] flex-wrap ">
         {seasons.map((e, i) => (
@@ -38,7 +39,7 @@ export default function SeasonsContainer() {
             />
           </li>
         ))}
-        <PlusSeason />
+        <AddNewItem addNew={AddNew_e.Section} />
       </ul>
     </section>
   );
@@ -90,24 +91,5 @@ const RenderItem = ({
         />
       </MyDialog>
     </div>
-  );
-};
-
-const PlusSeason = () => {
-  const { handleOnSubmit__Create }: any = useSeasonsContext();
-  return (
-    <MyDialog
-      title="New Season"
-      trigger={
-        <button className="border-2 flexCenter border-gray-600 h-[9rem] rounded-md aspect-video">
-          <FontAwesomeIcon icon={faPlus} className="size-[1rem]" />
-        </button>
-      }
-    >
-      <SeasonsForm
-        handleOnSubmit={handleOnSubmit__Create}
-        defaultValues={{ name: "", duration: undefined }}
-      />
-    </MyDialog>
   );
 };

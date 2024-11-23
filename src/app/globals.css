@@ -5,6 +5,13 @@
 html {
   @apply text-[20px];
 }
+.section-container {
+  @apply space-y-3 h-[25rem] py-[1rem] px-[2rem];
+}
+
+.box-item {
+  @apply border-2 flexCenter border-gray-600 h-[9rem] rounded-md aspect-video;
+}
 
 .new-h-screen {
   height: calc(100vh - 3.8rem);
