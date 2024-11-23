@@ -2,11 +2,7 @@
 import { API_APP_URL } from "@/lib/API_APP_URL";
 import axios from "axios";
 
-export default async function Page({
-  params,
-}: {
-  params: { seasonId: string };
-}) {
+export default async function Page({ params }) {
   const { seasonId } = await params; // Destructure seasonId from params
   const seasonData = await getSeason(seasonId); // Fetch or process data using seasonId
 
