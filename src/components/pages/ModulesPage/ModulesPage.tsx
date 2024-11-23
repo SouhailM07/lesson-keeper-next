@@ -2,6 +2,7 @@
 
 import AddNewItem, { AddNew_e } from "@/components/atoms/AddNewItem/AddNewItem";
 import PageTitle from "@/components/atoms/PageTitle/PageTitle";
+import ModulesContainer from "@/components/organisms/ModulesContainer/ModulesContainer";
 import ModulesApiContextProvider from "@/context/ModulesApiContext/ModulesApiContext";
 import { API_APP_URL } from "@/lib/API_APP_URL";
 import axios from "axios";
@@ -15,14 +16,8 @@ export default function ModulesPage({
   seasonId: string;
 }) {
   return (
-    <section className="section-container">
-      <article className="flexBetween">
-        <PageTitle title="Modules" />
-        <button>back</button>
-      </article>
-      <ModulesApiContextProvider seasonId={seasonId}>
-        <AddNewItem addNew={AddNew_e.Module} />
-      </ModulesApiContextProvider>
-    </section>
+    <ModulesApiContextProvider seasonId={seasonId}>
+      <ModulesContainer />
+    </ModulesApiContextProvider>
   );
 }

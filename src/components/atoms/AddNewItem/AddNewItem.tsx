@@ -4,8 +4,6 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MyDialog from "../MyDialog/MyDialog";
 import ModulesForm from "@/components/molecules/ModulesForm/ModulesForm";
-import axios from "axios";
-import { API_APP_URL } from "@/lib/API_APP_URL";
 import { useModulesApiContext } from "@/context/ModulesApiContext/ModulesApiContext";
 
 export enum AddNew_e {
