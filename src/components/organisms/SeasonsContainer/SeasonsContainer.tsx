@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import seasonsStore from "@/zustand/seasons.store";
 import { useSeasonsContext } from "@/context/SeasonsContext/SeasonsContext";
 import SeasonsForm from "@/components/molecules/SeasonsForm/SeasonsForm";
+import Link from "next/link";
 
 export default function SeasonsContainer() {
   const { isSignedIn } = useAuth();
@@ -29,6 +30,7 @@ export default function SeasonsContainer() {
         {seasons.map((e, i) => (
           <li key={i}>
             <RenderItem
+              id={e._id}
               itemId={e._id}
               title={e.name}
               modulesLen={10}
@@ -44,10 +46,12 @@ export default function SeasonsContainer() {
 
 const RenderItem = ({
   itemId,
+  id,
   title,
   modulesLen,
   duration,
 }: {
+  id: string;
   title: string;
   modulesLen: number;
   duration: any;
@@ -55,18 +59,21 @@ const RenderItem = ({
 }) => {
   const { handleOnSubmit__Edit, fetch_delete_season }: any =
     useSeasonsContext();
+
   return (
     <div className="flex flex-col">
-      <button className="border-2 flex flex-col px-[1.2rem] py-3 justify-between items-center  border-gray-600 h-[9rem] rounded-md aspect-video">
-        <div className="flexBetween w-full h-[4rem] px-2">
-          <h1 className="text-[1.7rem] font-medium ">{title}</h1>
-          <div className="flex text-start flex-col">
-            <span>Modules : {modulesLen}</span>
-            <span>Lessons : {modulesLen}</span>
+      <Link href={`season/${id}`}>
+        <button className="border-2 flex flex-col px-[1.2rem] py-3 justify-between items-center  border-gray-600 h-[9rem] rounded-md aspect-video">
+          <div className="flexBetween w-full h-[4rem] px-2">
+            <h1 className="text-[1.7rem] font-medium ">{title}</h1>
+            <div className="flex text-start flex-col">
+              <span>Modules : {modulesLen}</span>
+              <span>Lessons : {modulesLen}</span>
+            </div>
           </div>
-        </div>
-        <p className="text-gray-600 text-[0.8rem] ">{duration}</p>
-      </button>
+          <p className="text-gray-600 text-[0.8rem] ">{duration}</p>
+        </button>
+      </Link>
       <MyDialog
         title="Edit Season"
         trigger={

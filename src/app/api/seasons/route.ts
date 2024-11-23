@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
   try {
     const id = queryParam(req, "id");
     if (id) {
-      const selectedSeason = await Season.findById(id).populate("userBy");
+      const selectedSeason = await Season.findById(id);
       if (!selectedSeason) {
         return handle404();
       }
