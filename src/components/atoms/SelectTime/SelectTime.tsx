@@ -45,7 +45,7 @@ export default function SelectTime({ form, formLabel, name }) {
         <FormItem>
           <FormLabel>{formLabel}</FormLabel>
           <FormControl>
-            <div className="grid gap-4">
+            <div className=" grid gap-4">
               <Popover>
                 <PopoverTrigger asChild>
                   <div className="relative">
@@ -60,7 +60,10 @@ export default function SelectTime({ form, formLabel, name }) {
                     />
                   </div>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
+                <PopoverContent
+                  className="w-auto p-0 translate-y-[5rem]"
+                  align="start"
+                >
                   <Calendar
                     initialFocus
                     mode="range"

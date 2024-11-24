@@ -9,6 +9,7 @@ import { formFieldRenderItem_t } from "@/types";
 import FormFieldRenderItem from "@/components/atoms/FormFieldRenderItem/FormFieldRenderItem";
 import { DialogClose } from "@/components/ui/dialog";
 import { closeThatDialog } from "@/lib/aliases";
+import WarningBeforeDelete from "@/components/atoms/WarningBeforeDelete/WarningBeforeDelete";
 
 const formSchema = z.object({
   name: z.string().min(3, {
@@ -56,9 +57,13 @@ export default function ModulesForm({
         <div className="flexBetween ">
           <Button type="submit">{itemId ? "Update" : "Submit"}</Button>
           {itemId && (
-            <Button onClick={handleBtnDelete} type="button">
-              Delete
-            </Button>
+            <WarningBeforeDelete handleDelete={handleBtnDelete}>
+              <p>
+                You are about to Delete this
+                <span className="text-red-500"> season</span> and every modules
+                and lessons inside it , are you sure you want to delete it ?
+              </p>
+            </WarningBeforeDelete>
           )}
         </div>
         <DialogClose className="absolute z-[-1]" ref={closeDialogRef} />
