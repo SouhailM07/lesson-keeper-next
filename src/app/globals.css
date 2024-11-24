@@ -39,7 +39,7 @@ html {
 
 .loader-background {
   height: 100%;
-  width: 100vw;
+  width: 100%;
   background-color: #242f3f;
   display: flex;
   justify-content: center;

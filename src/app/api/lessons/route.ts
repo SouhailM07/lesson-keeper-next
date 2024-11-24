@@ -38,6 +38,8 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const values = await req.json();
+    // ! add upload file here
+
     const newLesson = new Lesson(values);
     await newLesson.save();
     return handleResponse(...getKeys(messages.create_item));

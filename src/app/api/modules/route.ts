@@ -3,6 +3,8 @@ import connectMongoose from "@/lib/connectMongoose";
 import handleResponse from "@/lib/handleResponse";
 import queryParam from "@/lib/queryParam";
 import Module from "@/models/modules.model";
+import Lesson from "@/models/lesson.model";
+import { deleteFile } from "@/lib/appwriteHandlers";
 
 connectMongoose();
 // ! local api handlers [start]
@@ -62,12 +64,29 @@ export async function PUT(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
   try {
     const id = queryParam(req, "id");
+    // Find all lessons associated with the module
+    const deleteLessons = await Lesson.find({ moduleBy: id });
+    // Delete associated files
+    await Promise.all(
+      deleteLessons.map(async (lesson) => {
+        try {
+          await deleteFile(lesson.file.fileId);
+        } catch (err) {
+          console.error(`Failed to delete file with ID: ${lesson.fileId}`, err);
+        }
+      })
+    );
+
+    // Delete all lessons associated with the module
+    await Lesson.deleteMany({ moduleBy: id });
+    // Delete the module itself
     const deletedModule = await Module.findByIdAndDelete(id);
     if (!deletedModule) {
-      return handle404();
+      return handle404(); // Not Found
     }
-    return handleResponse("module was deleted successfully", 200);
+    // Return success response
+    return handleResponse("Module was deleted successfully", 200);
   } catch (error) {
-    return handle505(error);
+    return handle505(error); // Internal Server Error
   }
 }

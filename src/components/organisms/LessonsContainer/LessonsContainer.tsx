@@ -15,14 +15,14 @@ export default function LessonsContainer() {
   useEffect(() => {
     fetch_get_lessons();
   }, []);
-  console.log(lessons);
+  // console.log(lessons);
   return (
     <section className="section-container">
       <article className="flexBetween">
         <PageTitle title="Lessons" />
         <button onClick={() => router.back()}>back</button>
       </article>
-      <div className="p-2 space-y-[1rem]">
+      <div className="p-2 space-y-[0.7rem]">
         {lessons.map((e, i) => (
           <LessonRenderItem key={i} {...e} />
         ))}

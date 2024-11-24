@@ -4,6 +4,7 @@ import MySidebar from "@/components/organisms/MySidebar/MySidebar";
 import { ClerkProvider } from "@clerk/nextjs";
 import DontRenderWhen from "@/components/atoms/DontRenderWhen/DontRenderWhen";
 import Navbar from "@/components/organisms/Navbar/Navbar";
+import Loading from "@/components/atoms/Loading/Loading";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
     <ClerkProvider dynamic>
       <html lang="en">
         <body className={poppins.className}>
+          <Loading />
           <div id="main-container">
             <DontRenderWhen route={["/signIn"]}>
               <Navbar />

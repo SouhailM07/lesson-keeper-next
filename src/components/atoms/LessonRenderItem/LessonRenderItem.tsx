@@ -13,9 +13,9 @@ import FileType, { fileTypes_e } from "../FileType/FileType";
 export default function LessonRenderItem({ name, _id, file }) {
   const { fetch_delete_lesson }: any = useLessonApiContext();
   return (
-    <div>
+    <div className="mx-auto max-w-[50rem]">
       <FileType fileType={fileTypes_e[file.fileMimiType]} />
-      <div className="p-[1rem] mx-auto max-w-[50rem] border rounded-sm border-gray-500 h-[2.6rem] flexBetween">
+      <div className="p-[1rem] border rounded-sm border-gray-500 h-[2.6rem] flexBetween">
         <p>{name}</p>
         <div className="flex items-center gap-x-[1.5rem] text-[1.1rem]">
           <a href="#">
@@ -33,7 +33,7 @@ export default function LessonRenderItem({ name, _id, file }) {
               fileId={file.fileId}
               handleOnSubmit={() => {}}
               handleDelete={fetch_delete_lesson}
-              defaultValues={{ name, file: undefined }}
+              defaultValues={{ name, file: file.fileUrl }}
             />
           </MyDialog>
           <FontAwesomeIcon icon={faBars} />

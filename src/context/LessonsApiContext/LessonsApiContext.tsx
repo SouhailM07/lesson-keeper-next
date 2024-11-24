@@ -2,6 +2,7 @@
 import { API_APP_URL } from "@/lib/API_APP_URL";
 import { deleteFile, uploadFile } from "@/lib/appwriteHandlers";
 import lessonsStore from "@/zustand/lessons.store";
+import loadingStore from "@/zustand/loading.store";
 import axios from "axios";
 import { createContext, useContext } from "react";
 
@@ -13,18 +14,24 @@ export default function LessonsApiContextProvider({
   children,
 }) {
   const { editLessons } = lessonsStore((state) => state);
+  const { editLoading } = loadingStore((state) => state);
+
   const fetch_get_lessons = async () => {
     try {
+      editLoading(true);
       let res = await axios.get(
         `${API_APP_URL}/api/lessons?moduleId=${moduleId}`
       );
       editLessons(res.data);
+      editLoading(false);
     } catch (error) {
+      editLoading(false);
       console.log(error);
     }
   };
   const handleOnSubmit__Create = async (values) => {
     try {
+      editLoading(true);
       let fileRes = await uploadFile(values.file);
       let postValues = {
         name: values.name,
@@ -40,16 +47,19 @@ export default function LessonsApiContextProvider({
       await fetch_get_lessons();
       console.log(res.data);
     } catch (error) {
+      editLoading(false);
       console.log(error);
     }
   };
   const fetch_delete_lesson = async (itemId: string, fileId: string) => {
     try {
+      editLoading(true);
       await deleteFile(fileId);
       const res = await axios.delete(`${API_APP_URL}/api/lessons?id=${itemId}`);
       await fetch_get_lessons();
       console.log(res.data);
     } catch (error) {
+      editLoading(false);
       console.log(error);
     }
   };
