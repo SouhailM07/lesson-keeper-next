@@ -1,5 +1,11 @@
 "use client";
-import { API_APP_URL } from "@/lib/API_APP_URL";
+import { useToast } from "@/hooks/use-toast";
+import {
+  API_APP_URL,
+  toast_duration,
+  toast_error_data,
+  toast_good,
+} from "@/lib/constants";
 import loadingStore from "@/zustand/loading.store";
 import modulesStore from "@/zustand/modules.store";
 import seasonsStore from "@/zustand/seasons.store";
@@ -15,6 +21,7 @@ export default function SeasonsProvider({ children }) {
   const { editSeasons } = seasonsStore((state) => state);
   const { editModules } = modulesStore();
   const { editLoading } = loadingStore();
+  const { toast } = useToast();
 
   //
 
@@ -30,6 +37,7 @@ export default function SeasonsProvider({ children }) {
       editLoading(false);
     } catch (error) {
       editLoading(false);
+      toast(toast_error_data);
       console.log(error);
     }
   };
@@ -41,9 +49,10 @@ export default function SeasonsProvider({ children }) {
         userId: user?.id,
       });
       await fetch_get_seasons();
-      console.log(res);
+      toast(toast_good(res));
     } catch (error) {
       editLoading(false);
+      toast(toast_error_data);
       console.log(error);
     }
   };
@@ -55,9 +64,10 @@ export default function SeasonsProvider({ children }) {
         values
       );
       await fetch_get_seasons();
-      console.log(res);
+      toast(toast_good(res));
     } catch (error) {
       editLoading(false);
+      toast(toast_error_data);
       console.log(error);
     }
   };
@@ -66,9 +76,10 @@ export default function SeasonsProvider({ children }) {
       editLoading(true);
       let res = await axios.delete(`${API_APP_URL}/api/seasons?id=${itemId}`);
       await fetch_get_seasons();
-      console.log(res.data);
+      toast(toast_good(res));
     } catch (error) {
       editLoading(false);
+      toast(toast_error_data);
       console.log(error);
     }
   };

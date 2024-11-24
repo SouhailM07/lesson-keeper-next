@@ -1,5 +1,6 @@
 "use client";
-import { API_APP_URL } from "@/lib/API_APP_URL";
+import { useToast } from "@/hooks/use-toast";
+import { API_APP_URL, toast_error_data, toast_good } from "@/lib/constants";
 import loadingStore from "@/zustand/loading.store";
 import modulesStore from "@/zustand/modules.store";
 import axios from "axios";
@@ -10,6 +11,7 @@ const ModulesApiContext = createContext({});
 export default function ModulesApiContextProvider({ seasonId, children }) {
   const { editModules } = modulesStore();
   const { editLoading } = loadingStore();
+  const { toast } = useToast();
 
   const fetch_get_modules = async () => {
     try {
@@ -21,6 +23,7 @@ export default function ModulesApiContextProvider({ seasonId, children }) {
       editLoading(false);
     } catch (error) {
       editLoading(false);
+      toast(toast_error_data);
       console.log(error);
     }
   };
@@ -33,9 +36,10 @@ export default function ModulesApiContextProvider({ seasonId, children }) {
       });
       await fetch_get_modules();
       // await to update the list
-      console.log(res.data);
+      toast(toast_good(res));
     } catch (error) {
       editLoading(false);
+      toast(toast_error_data);
       console.log(error);
     }
   };
@@ -47,9 +51,10 @@ export default function ModulesApiContextProvider({ seasonId, children }) {
         values
       );
       await fetch_get_modules();
-      console.log(res.data);
+      toast(toast_good(res));
     } catch (error) {
       editLoading(false);
+      toast(toast_error_data);
       console.log(error);
     }
   };
@@ -58,9 +63,10 @@ export default function ModulesApiContextProvider({ seasonId, children }) {
       editLoading(true);
       let res = await axios.delete(`${API_APP_URL}/api/modules?id=${itemId}`);
       await fetch_get_modules();
-      console.log(res.data);
+      toast(toast_good(res));
     } catch (error) {
       editLoading(false);
+      toast(toast_error_data);
       console.log(error);
     }
   };

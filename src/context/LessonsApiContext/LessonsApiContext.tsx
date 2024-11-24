@@ -1,6 +1,7 @@
 "use client";
-import { API_APP_URL } from "@/lib/API_APP_URL";
+import { useToast } from "@/hooks/use-toast";
 import { deleteFile, IUploadFile, uploadFile } from "@/lib/appwriteHandlers";
+import { API_APP_URL, toast_error_data, toast_good } from "@/lib/constants";
 import { ILesson } from "@/types/api.types";
 import lessonsStore from "@/zustand/lessons.store";
 import loadingStore from "@/zustand/loading.store";
@@ -16,6 +17,7 @@ export default function LessonsApiContextProvider({
 }) {
   const { editLessons } = lessonsStore((state) => state);
   const { editLoading } = loadingStore((state) => state);
+  const { toast } = useToast();
 
   const fetch_get_lessons = async () => {
     try {
@@ -27,6 +29,7 @@ export default function LessonsApiContextProvider({
       editLoading(false);
     } catch (error) {
       editLoading(false);
+      toast(toast_error_data);
       console.log(error);
     }
   };
@@ -34,7 +37,8 @@ export default function LessonsApiContextProvider({
     try {
       editLoading(true);
       let fileRes: IUploadFile = await uploadFile(values.file);
-      console.log(fileRes);
+      // TODO Guardian
+      // console.log(fileRes);
       let postValues: ILesson = {
         name: values.name,
         moduleBy: moduleId,
@@ -48,9 +52,10 @@ export default function LessonsApiContextProvider({
       };
       let res = await axios.post(`${API_APP_URL}/api/lessons`, postValues);
       await fetch_get_lessons();
-      console.log(res.data);
+      toast(toast_good(res));
     } catch (error) {
       editLoading(false);
+      toast(toast_error_data);
       console.log(error);
     }
   };
@@ -60,9 +65,10 @@ export default function LessonsApiContextProvider({
       await deleteFile(fileId);
       const res = await axios.delete(`${API_APP_URL}/api/lessons?id=${itemId}`);
       await fetch_get_lessons();
-      console.log(res.data);
+      toast(toast_good(res));
     } catch (error) {
       editLoading(false);
+      toast(toast_error_data);
       console.log(error);
     }
   };

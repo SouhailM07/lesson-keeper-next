@@ -5,6 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import DontRenderWhen from "@/components/atoms/DontRenderWhen/DontRenderWhen";
 import Navbar from "@/components/organisms/Navbar/Navbar";
 import Loading from "@/components/atoms/Loading/Loading";
+import { Toaster } from "@/components/ui/toaster";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
           <DontRenderWhen route={["/signIn"]}>
             <MySidebar />
           </DontRenderWhen>
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>
