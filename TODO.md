@@ -20,10 +20,10 @@ Project Description
 
 ### In Progress
 
-- [ ] add motion btn switch  
 
 ### Done ✓
 
+- [x] add motion btn switch  
 - [x] add warnings and close dialog to modules  
 - [x] add warnings and close dialog to lessons  
 - [x] make switch component for plus button  
