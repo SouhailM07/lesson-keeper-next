@@ -10,6 +10,7 @@ import { formFieldRenderItem_t } from "@/types";
 import SelectTime from "@/components/atoms/SelectTime/SelectTime";
 import { DialogClose } from "@/components/ui/dialog";
 import { useRef } from "react";
+import MyDialog from "@/components/atoms/MyDialog/MyDialog";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -36,11 +37,13 @@ export default function SeasonForm({
     // ✅ This will be type-safe and validated.
 
     await handleOnSubmit(values, itemId);
+    closeDialogRef.current.click();
   };
   const inputs: formFieldRenderItem_t[] = [
     { name: "name", formLabel: "Season Name" },
   ];
   const closeDialogRef: any = useRef(null);
+  console.log();
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -56,9 +59,31 @@ export default function SeasonForm({
         <div className="flexBetween">
           <Button type="submit">{itemId ? "Update" : "Submit"}</Button>
           {itemId && (
-            <Button onClick={() => handleDelete(itemId)} type="button">
-              Delete
-            </Button>
+            <MyDialog title="Warning" trigger={<Button>Delete</Button>}>
+              <div>
+                <p>
+                  You are about to Delete this
+                  <span className="text-red-500"> season</span> and every
+                  modules and lessons inside it , are you sure you want to
+                  delete it ?
+                </p>
+              </div>
+              <div className="flexBetween">
+                <DialogClose asChild>
+                  <Button
+                    onClick={() => {
+                      closeDialogRef.current.click();
+                      handleDelete(itemId);
+                    }}
+                  >
+                    Delete
+                  </Button>
+                </DialogClose>
+                <DialogClose asChild>
+                  <Button>Cancel</Button>
+                </DialogClose>
+              </div>
+            </MyDialog>
           )}
         </div>
         <DialogClose ref={closeDialogRef} />

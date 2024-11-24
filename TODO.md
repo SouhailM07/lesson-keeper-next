@@ -6,6 +6,11 @@ Project Description
 
 ### Todo
 
+- [ ] add toasters  
+- [ ] new design for module container  
+- [ ] add a reseter for zustand stores when entering diffrent pages  
+- [ ] add a closer to season create form  
+- [ ] add initial dates to create new season  
 - [ ] move the clerk btn to sidebar  
 - [ ] add animations  
 - [ ] reduce the seasons size  
