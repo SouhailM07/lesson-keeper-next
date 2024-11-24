@@ -1,6 +1,14 @@
 import { storage, ID, appwriteKeys } from "@/appwrite";
 
-export const uploadFile = async (file) => {
+export interface IUploadFile {
+  $id: string;
+  name: string;
+  mimeType: string;
+  fileUrl: string;
+  filePreview: string;
+}
+
+export const uploadFile = async (file): Promise<IUploadFile> => {
   try {
     const { $id, name, mimeType } = await storage.createFile(
       appwriteKeys.bucketId,
@@ -8,10 +16,12 @@ export const uploadFile = async (file) => {
       file
       //   onProgress
     );
-    let fileHref = await downloadFile($id);
-    return { $id, name, mimeType, fileHref };
+    let fileUrl = await downloadFile($id);
+    let filePreview: any = await getFilePreview($id);
+    return { $id, name, mimeType, fileUrl, filePreview };
   } catch (error) {
     console.log(error);
+    throw error;
   }
 };
 
@@ -41,6 +51,18 @@ export const downloadFile = async (fileId) => {
       fileId
     );
     return fileUrl;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getFilePreview = async (fileId: string) => {
+  try {
+    const filePreview = await storage.getFileView(
+      appwriteKeys.bucketId,
+      fileId
+    );
+    return filePreview;
   } catch (error) {
     console.log(error);
   }

@@ -1,17 +1,9 @@
+import { ILesson } from "@/types/api.types";
 import { Model, model, Schema, Document } from "mongoose";
 
-interface ILesson extends Document {
-  name: string;
-  moduleBy: any;
-  file: {
-    fileId: string;
-    fileName: string;
-    fileMimiType: string;
-    fileUrl: string;
-  };
-}
+export type Lesson_t = ILesson & Document;
 
-const lessonSchema = new Schema<ILesson>({
+const lessonSchema = new Schema<Lesson_t>({
   name: { type: String, required: true },
   moduleBy: { type: Schema.Types.ObjectId, ref: "Module" },
   file: {
@@ -20,17 +12,17 @@ const lessonSchema = new Schema<ILesson>({
       fileName: String,
       fileMimiType: String,
       fileUrl: String,
+      filePreview: String,
     },
-    required: true,
   },
 });
 
-let Lesson = Model<ILesson>;
+let Lesson = Model<Lesson_t>;
 
 try {
-  Lesson = model<ILesson>("Lesson");
+  Lesson = model<Lesson_t>("Lesson");
 } catch (error) {
-  Lesson = model<ILesson>("Lesson", lessonSchema);
+  Lesson = model<Lesson_t>("Lesson", lessonSchema);
 }
 
 export default Lesson;

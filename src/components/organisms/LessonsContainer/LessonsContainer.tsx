@@ -15,7 +15,8 @@ export default function LessonsContainer() {
   useEffect(() => {
     fetch_get_lessons();
   }, []);
-  // console.log(lessons);
+  // TODO Guardian
+  //  console.log(lessons);
   return (
     <section className="section-container">
       <article className="flexBetween">

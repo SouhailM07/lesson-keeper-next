@@ -1,6 +1,7 @@
 "use client";
 import { API_APP_URL } from "@/lib/API_APP_URL";
-import { deleteFile, uploadFile } from "@/lib/appwriteHandlers";
+import { deleteFile, IUploadFile, uploadFile } from "@/lib/appwriteHandlers";
+import { ILesson } from "@/types/api.types";
 import lessonsStore from "@/zustand/lessons.store";
 import loadingStore from "@/zustand/loading.store";
 import axios from "axios";
@@ -32,15 +33,17 @@ export default function LessonsApiContextProvider({
   const handleOnSubmit__Create = async (values) => {
     try {
       editLoading(true);
-      let fileRes = await uploadFile(values.file);
-      let postValues = {
+      let fileRes: IUploadFile = await uploadFile(values.file);
+      console.log(fileRes);
+      let postValues: ILesson = {
         name: values.name,
         moduleBy: moduleId,
         file: {
-          fileName: fileRes?.name,
-          fileId: fileRes?.$id,
-          fileMimiType: fileRes?.mimeType,
-          fileUrl: fileRes?.fileHref,
+          fileName: fileRes.name,
+          fileId: fileRes.$id,
+          fileMimiType: fileRes.mimeType,
+          fileUrl: fileRes.fileUrl,
+          filePreview: fileRes.filePreview,
         },
       };
       let res = await axios.post(`${API_APP_URL}/api/lessons`, postValues);

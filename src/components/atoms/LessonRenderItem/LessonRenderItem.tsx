@@ -18,7 +18,7 @@ export default function LessonRenderItem({ name, _id, file }) {
       <div className="p-[1rem] border rounded-sm border-gray-500 h-[2.6rem] flexBetween">
         <p>{name}</p>
         <div className="flex items-center gap-x-[1.5rem] text-[1.1rem]">
-          <a href="#">
+          <a href={file.filePreview} target="__blank">
             <FontAwesomeIcon icon={faEye} />
           </a>
           <a href={file.fileUrl}>
