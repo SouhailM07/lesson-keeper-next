@@ -11,7 +11,8 @@ import { useLessonApiContext } from "@/context/LessonsApiContext/LessonsApiConte
 import FileType, { fileTypes_e } from "../FileType/FileType";
 
 export default function LessonRenderItem({ name, _id, file }) {
-  const { fetch_delete_lesson }: any = useLessonApiContext();
+  const { fetch_delete_lesson, handleOnSubmit__Edit }: any =
+    useLessonApiContext();
   return (
     <div className="mx-auto max-w-[50rem]">
       <FileType fileType={fileTypes_e[file.fileMimiType]} />
@@ -31,7 +32,7 @@ export default function LessonRenderItem({ name, _id, file }) {
             <LessonsForm
               itemId={_id}
               fileId={file.fileId}
-              handleOnSubmit={() => {}}
+              handleOnSubmit={handleOnSubmit__Edit}
               handleDelete={fetch_delete_lesson}
               defaultValues={{ name, file: file.fileUrl }}
             />

@@ -1,6 +1,11 @@
 "use client";
 import { useToast } from "@/hooks/use-toast";
-import { deleteFile, IUploadFile, uploadFile } from "@/lib/appwriteHandlers";
+import {
+  deleteFile,
+  editFile,
+  IUploadFile,
+  uploadFile,
+} from "@/lib/appwriteHandlers";
 import { API_APP_URL, toast_error_data, toast_good } from "@/lib/constants";
 import { ILesson } from "@/types/api.types";
 import lessonsStore from "@/zustand/lessons.store";
@@ -59,6 +64,47 @@ export default function LessonsApiContextProvider({
       console.log(error);
     }
   };
+
+  const handleOnSubmit__Edit = async (values, itemId, fileId) => {
+    try {
+      editLoading(true);
+      // ! need to check if the file type is string == " not update "
+      // ! or file File =="new file to update"
+      if (typeof values.file !== "string") {
+        let fileRes: IUploadFile = await editFile(values.file, fileId);
+        // TODO Guardian
+        // console.log(fileRes);
+        let postValues: ILesson = {
+          name: values.name,
+          moduleBy: moduleId,
+          file: {
+            fileName: fileRes.name,
+            fileId: fileRes.$id,
+            fileMimiType: fileRes.mimeType,
+            fileUrl: fileRes.fileUrl,
+            filePreview: fileRes.filePreview,
+          },
+        };
+        let res = await axios.put(
+          `${API_APP_URL}/api/lessons?id=${itemId}`,
+          postValues
+        );
+        await fetch_get_lessons();
+        toast(toast_good(res));
+      } else {
+        let res = await axios.put(`${API_APP_URL}/api/lessons?id=${itemId}`, {
+          name: values.name,
+        });
+        await fetch_get_lessons();
+        toast(toast_good(res));
+      }
+    } catch (error) {
+      editLoading(false);
+      toast(toast_error_data);
+      console.log(error);
+    }
+  };
+
   const fetch_delete_lesson = async (itemId: string, fileId: string) => {
     try {
       editLoading(true);
@@ -76,6 +122,7 @@ export default function LessonsApiContextProvider({
     <LessonsApiContext.Provider
       value={{
         moduleId,
+        handleOnSubmit__Edit,
         fetch_get_lessons,
         fetch_delete_lesson,
         handleOnSubmit__Create,

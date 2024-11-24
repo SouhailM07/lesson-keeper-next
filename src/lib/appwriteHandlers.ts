@@ -34,13 +34,14 @@ export const deleteFile = async (fileId) => {
   }
 };
 
-export const editFile = async (fileId, file) => {
+export const editFile = async (file, fileId): Promise<IUploadFile> => {
   try {
     await deleteFile(fileId);
     let newFileData = await uploadFile(file);
     return newFileData;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 };
 

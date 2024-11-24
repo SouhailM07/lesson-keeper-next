@@ -17,9 +17,12 @@ const formSchema = z.object({
   name: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
-  file: z
-    .instanceof(File)
-    .refine((file) => file.size > 0, { message: "File cannot be empty" }),
+  file: z.union([
+    z
+      .instanceof(File)
+      .refine((file) => file.size > 0, { message: "File cannot be empty" }),
+    z.string().url({ message: "Must be a valid URL" }),
+  ]),
 });
 
 export default function LessonsForm({
@@ -38,7 +41,7 @@ export default function LessonsForm({
     { name: "name", formLabel: "Lesson Name" },
   ];
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    await handleOnSubmit(values, itemId);
+    await handleOnSubmit(values, itemId, fileId);
     closeThatDialog(closeDialogRef);
   };
   const handleBtnDelete = async () => {
