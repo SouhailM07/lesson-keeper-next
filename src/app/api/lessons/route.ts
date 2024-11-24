@@ -18,8 +18,16 @@ const messages: ResponseMessages = {
 };
 // ! local api handlers [end]
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    const moduleId = queryParam(req, "moduleId");
+    if (moduleId) {
+      const selectedLessons = await Lesson.find({ moduleBy: moduleId });
+      if (!selectedLessons) {
+        return handleResponse(...getKeys(messages.not_found));
+      }
+      return handleResponse(selectedLessons, 200);
+    }
     const lessons = await Lesson.find({});
     return handleResponse(lessons, 200);
   } catch (error) {

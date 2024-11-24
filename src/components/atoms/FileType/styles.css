@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.fileTypeBlock {
+  @apply ml-[0.3rem] text-[0.8rem] py-[0.1rem] grid place-items-center rounded-t-sm w-[3rem];
+}

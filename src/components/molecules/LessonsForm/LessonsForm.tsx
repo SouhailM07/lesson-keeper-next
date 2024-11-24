@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 // shadcn-ui
 import { Form } from "@/components/ui/form";
 import FormFieldRenderItem from "@/components/atoms/FormFieldRenderItem/FormFieldRenderItem";
-import SelectFile from "@/components/SelectFile/SelectFile";
+import SelectFile from "@/components/atoms/SelectFile/SelectFile";
 import { formFieldRenderItem_t } from "@/types";
 
 const formSchema = z.object({
@@ -18,19 +18,22 @@ const formSchema = z.object({
     .refine((file) => file.size > 0, { message: "File cannot be empty" }),
 });
 
-export default function LessonsForm() {
+export default function LessonsForm({
+  handleOnSubmit,
+  defaultValues,
+  itemId = null,
+  fileId = null,
+  handleDelete = (itemId, fileId) => {},
+}) {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      file: undefined,
-    },
+    defaultValues,
   });
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
+    await handleOnSubmit(values, itemId);
   };
   const inputs: formFieldRenderItem_t[] = [
     { name: "name", formLabel: "Lesson Name" },
@@ -42,7 +45,14 @@ export default function LessonsForm() {
           <FormFieldRenderItem key={i} form={form} {...e} />
         ))}
         <SelectFile name="file" formLabel="Lesson File" form={form} />
-        <Button type="submit">Submit</Button>
+        <div className="flexBetween">
+          <Button type="submit">Submit</Button>
+          {itemId && (
+            <Button onClick={() => handleDelete(itemId, fileId)} type="button">
+              Delete
+            </Button>
+          )}
+        </div>
       </form>
     </Form>
   );

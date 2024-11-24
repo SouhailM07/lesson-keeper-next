@@ -11,7 +11,6 @@ const moduleSchema = new Schema<IModule>(
   {
     name: String,
     mentor_name: { type: String, default: null },
-    lessons: [{ type: Schema.Types.ObjectId, ref: "Lesson" }],
     seasonBy: { type: Schema.Types.ObjectId, ref: "Season" },
   },
   { timestamps: true }

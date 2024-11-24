@@ -6,6 +6,7 @@ import MyDialog from "../MyDialog/MyDialog";
 import ModulesForm from "@/components/molecules/ModulesForm/ModulesForm";
 import { useModulesApiContext } from "@/context/ModulesApiContext/ModulesApiContext";
 import LessonsForm from "@/components/molecules/LessonsForm/LessonsForm";
+import { useLessonApiContext } from "@/context/LessonsApiContext/LessonsApiContext";
 
 export enum AddNew_e {
   Section = "SECTION",
@@ -68,16 +69,20 @@ const AddNewModule = () => {
 };
 
 const AddNewLesson = () => {
+  const { handleOnSubmit__Create }: any = useLessonApiContext();
   return (
     <MyDialog
       title="New Lesson"
       trigger={
-        <button className="p-[1rem] mx-auto w-[50rem] border rounded-sm border-gray-500 h-[2.6rem] flexCenter">
-          <FontAwesomeIcon icon={faPlus} />
-        </button>
+        <div className="p-[1rem] mx-auto max-w-[50rem] border rounded-sm border-gray-500 h-[2.6rem] flexCenter">
+          <FontAwesomeIcon role="button" icon={faPlus} />
+        </div>
       }
     >
-      <LessonsForm />
+      <LessonsForm
+        handleOnSubmit={handleOnSubmit__Create}
+        defaultValues={{ name: "", file: undefined }}
+      />
     </MyDialog>
   );
 };

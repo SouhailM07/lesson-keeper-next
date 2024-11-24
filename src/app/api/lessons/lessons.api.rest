@@ -1,0 +1,14 @@
+GET http://localhost:3000/api/lessons
+###
+GET http://localhost:3000/api/lessons?mid=67423560ad30f18f75a23068
+###
+POST http://localhost:3000/api/lessons
+Content-Type: application/json
+
+{
+    "name":"shadow 10",
+    "moduleBy":"674239dfc768c4a5b897da69",
+        "file":{"fileName":"test","fileUrl":"test","fileId":"test","fileMimiType":"test"}
+}
+###
+DELETE http://localhost:3000/api/lessons?id=674239eec768c4a5b897da6e

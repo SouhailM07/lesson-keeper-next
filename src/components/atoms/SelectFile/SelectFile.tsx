@@ -1,3 +1,4 @@
+"use client";
 import { formFieldRenderItem_t } from "@/types";
 import {
   FormField,
@@ -5,8 +6,8 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
-} from "../ui/form";
-import { Input } from "../ui/input";
+} from "../../ui/form";
+import { Input } from "../../ui/input";
 
 export default function SelectFile({
   form,
