@@ -3,6 +3,9 @@ import connectMongoose from "@/lib/connectMongoose";
 import handleResponse from "@/lib/handleResponse";
 import queryParam from "@/lib/queryParam";
 import Season from "@/models/season.model";
+import Module from "@/models/modules.model";
+import Lesson from "@/models/lesson.model";
+import { deleteFile } from "@/lib/appwriteHandlers";
 
 connectMongoose();
 // ! api local handler [start]
@@ -62,13 +65,56 @@ export async function PUT(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   try {
+    // Extract the ID from query parameters
     const id = queryParam(req, "id");
+    if (!id) {
+      return handleResponse("Season ID is required", 400); // Return early for missing ID
+    }
+
+    // Find all modules associated with the season
+    const deletedModules = await Module.find({ seasonBy: id });
+
+    // Process modules in parallel
+    await Promise.all(
+      deletedModules.map(async (module) => {
+        try {
+          // Find all lessons associated with the module
+          const deletedLessons = await Lesson.find({ moduleBy: module._id });
+
+          // Process lessons in parallel
+          await Promise.all(
+            deletedLessons.map(async (lesson) => {
+              try {
+                // Delete associated files
+                if (lesson.file?.fileId) {
+                  await deleteFile(lesson.file.fileId);
+                }
+              } catch (err) {
+                console.error(
+                  `Failed to delete file with ID: ${lesson.file?.fileId}`,
+                  err
+                );
+              }
+            })
+          );
+
+          // Optionally delete the lesson itself after handling its file
+          await Lesson.deleteMany({ moduleBy: module._id });
+        } catch (err) {
+          console.error(`Failed to process module with ID: ${module._id}`, err);
+        }
+      })
+    );
+
+    // Finally, delete the season
     const deletedSeason = await Season.findByIdAndDelete(id);
     if (!deletedSeason) {
-      return handle404();
+      return handle404(); // Return 404 if no season was found
     }
-    return handleResponse("season was deleted successfully", 200);
+
+    return handleResponse("Season was deleted successfully", 200);
   } catch (error) {
-    return handleResponse(error, 500);
+    console.error("An unexpected error occurred:", error);
+    return handleResponse("Internal Server Error", 500);
   }
 }
