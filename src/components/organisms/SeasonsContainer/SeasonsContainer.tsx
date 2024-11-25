@@ -8,6 +8,10 @@ import seasonsStore from "@/zustand/seasons.store";
 import { useSeasonsContext } from "@/context/SeasonsContext/SeasonsContext";
 import AddNewItem, { AddNew_e } from "@/components/atoms/AddNewItem/AddNewItem";
 import SeasonRenderItem from "@/components/atoms/SeasonRenderItem/SeasonRenderItem";
+import MyBreadcrumb, {
+  IBreadcrumbLink,
+  IMyBreadcrumb,
+} from "@/components/atoms/MyBreadcrumb/MyBreadcrumb";
 
 export default function SeasonsContainer() {
   const { isSignedIn } = useAuth();
@@ -21,9 +25,15 @@ export default function SeasonsContainer() {
   }, [user]);
 
   if (!isSignedIn) return <NotSigned />;
+  // links label link / main page
+  const breadcrumbs: IMyBreadcrumb = {
+    mainPage: "Seasons",
+    links: [{ link: "/", label: "Seasons" }],
+  };
   return (
     <section className="section-container">
-      <PageTitle title="Seasons" />
+      {/* <PageTitle title="Seasons" /> */}
+      <MyBreadcrumb {...breadcrumbs} />
       <ul className="flex gap-[1rem] flex-wrap ">
         {seasons.map((e, i) => (
           <li key={i}>

@@ -1,6 +1,9 @@
 "use client";
 import AddNewItem, { AddNew_e } from "@/components/atoms/AddNewItem/AddNewItem";
 import ModuleRenderItem from "@/components/atoms/ModuleRenderItem/ModuleRenderItem";
+import MyBreadcrumb, {
+  IMyBreadcrumb,
+} from "@/components/atoms/MyBreadcrumb/MyBreadcrumb";
 import PageTitle from "@/components/atoms/PageTitle/PageTitle";
 import { useModulesApiContext } from "@/context/ModulesApiContext/ModulesApiContext";
 import modulesStore from "@/zustand/modules.store";
@@ -10,13 +13,20 @@ import { useEffect } from "react";
 export default function ModulesContainer() {
   const { fetch_get_modules }: any = useModulesApiContext();
   const { modules } = modulesStore((state) => state);
+  const breadcrumbs: IMyBreadcrumb = {
+    mainPage: "Seasons",
+    links: [
+      { link: "/", label: "Seasons" },
+      { link: "/", label: "Modules" },
+    ],
+  };
   useEffect(() => {
     fetch_get_modules();
   }, []);
   return (
     <section className="section-container">
       <article className="flexBetween">
-        <PageTitle title="Modules" />
+        <MyBreadcrumb {...breadcrumbs} />
         <Link href="/">back</Link>
       </article>
       <ul className="flex gap-[1rem] flex-wrap">
