@@ -14,7 +14,7 @@ export default function LessonRenderItem({ name, _id, file }) {
   const { fetch_delete_lesson, handleOnSubmit__Edit }: any =
     useLessonApiContext();
   return (
-    <div className="mx-auto max-w-[50rem]">
+    <div className="w-full">
       <FileType fileType={fileTypes_e[file.fileMimiType]} />
       <div className="p-[1rem] border rounded-sm border-gray-500 h-[2.6rem] flexBetween">
         <p>{name}</p>

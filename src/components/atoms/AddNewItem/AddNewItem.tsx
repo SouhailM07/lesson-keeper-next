@@ -74,7 +74,7 @@ const AddNewLesson = () => {
     <MyDialog
       title="New Lesson"
       trigger={
-        <div className="p-[1rem] mx-auto max-w-[50rem] border rounded-sm border-gray-500 h-[2.6rem] flexCenter">
+        <div className="p-[1rem] w-full border rounded-sm border-gray-500 h-[2.6rem] flexCenter">
           <FontAwesomeIcon role="button" icon={faPlus} />
         </div>
       }

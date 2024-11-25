@@ -9,6 +9,13 @@ html {
   @apply space-y-3 h-[25rem] py-[1rem] px-[2rem];
 }
 
+.inline_lessons {
+  @apply space-y-[1rem];
+}
+.table_lessons {
+  @apply grid grid-cols-3 gap-3 items-end w-full;
+}
+
 .box-item {
   @apply border-2 flexCenter border-gray-600 h-[9rem] rounded-md aspect-video;
 }
