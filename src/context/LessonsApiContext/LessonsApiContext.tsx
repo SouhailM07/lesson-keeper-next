@@ -122,6 +122,7 @@ export default function LessonsApiContextProvider({
     <LessonsApiContext.Provider
       value={{
         moduleId,
+        moduleTitle,
         handleOnSubmit__Edit,
         fetch_get_lessons,
         fetch_delete_lesson,

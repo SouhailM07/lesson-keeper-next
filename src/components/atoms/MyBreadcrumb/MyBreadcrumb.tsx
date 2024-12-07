@@ -31,25 +31,25 @@ const MyBreadcrumbRenderItem = ({ mainPage, links }: IMyBreadcrumb) => {
   return links?.map((link, index) => {
     if (link.label == mainPage) {
       return (
-        <>
-          <BreadcrumbItem key={index}>
+        <div key={index} className="flexCenter">
+          <BreadcrumbItem>
             <BreadcrumbPage>{mainPage}</BreadcrumbPage>
           </BreadcrumbItem>
           {links.length > 1 && links.length - 1 !== index && (
             <BreadcrumbSeparator />
           )}
-        </>
+        </div>
       );
     } else {
       return (
-        <>
-          <BreadcrumbItem key={index}>
+        <div key={index} className="flexCenter">
+          <BreadcrumbItem>
             <BreadcrumbLink href={link.link}>{link.label}</BreadcrumbLink>
           </BreadcrumbItem>
           {links.length > 1 && index !== links.length - 1 && (
             <BreadcrumbSeparator />
           )}
-        </>
+        </div>
       );
     }
   });

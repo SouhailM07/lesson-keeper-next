@@ -8,7 +8,11 @@ import { useContext, createContext } from "react";
 
 const ModulesApiContext = createContext({});
 
-export default function ModulesApiContextProvider({ seasonId, children }) {
+export default function ModulesApiContextProvider({
+  seasonId,
+  seasonTitle,
+  children,
+}) {
   const { editModules } = modulesStore();
   const { editLoading } = loadingStore();
   const { toast } = useToast();
@@ -74,6 +78,7 @@ export default function ModulesApiContextProvider({ seasonId, children }) {
     <ModulesApiContext.Provider
       value={{
         seasonId,
+        seasonTitle,
         fetch_get_modules,
         handleOnSubmit__Create,
         handleOnSubmit__Edit,

@@ -8,9 +8,8 @@ import MyBreadcrumb, {
 import MyButton, {
   MyButtonTypes_e,
 } from "@/components/atoms/MyButton/MyButton";
-import PageTitle from "@/components/atoms/PageTitle/PageTitle";
 import { useLessonApiContext } from "@/context/LessonsApiContext/LessonsApiContext";
-import { cn } from "@/lib/utils";
+import { useModulesApiContext } from "@/context/ModulesApiContext/ModulesApiContext";
 import lessonsStore from "@/zustand/lessons.store";
 import {
   faArrowRight,
@@ -18,19 +17,13 @@ import {
   faTableCells,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function LessonsContainer() {
   const router = useRouter();
   const { lessons } = lessonsStore((state) => state);
   const { fetch_get_lessons }: any = useLessonApiContext();
-
-  enum OrderOptions_e {
-    Inline = "INLINE",
-    Table = "Table",
-  }
 
   const [orderOption, setOrderOption] = useState<number>(0);
 
@@ -44,8 +37,8 @@ export default function LessonsContainer() {
   const breadcrumbs: IMyBreadcrumb = {
     mainPage: "Lessons",
     links: [
-      { link: "/", label: "Seasons" },
-      { link: "/", label: "Modules" },
+      { link: "/", label: "need to solve" },
+      { link: "/", label: "need to solve" },
       { link: "/", label: "Lessons" },
     ],
   };

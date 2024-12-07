@@ -4,20 +4,19 @@ import ModuleRenderItem from "@/components/atoms/ModuleRenderItem/ModuleRenderIt
 import MyBreadcrumb, {
   IMyBreadcrumb,
 } from "@/components/atoms/MyBreadcrumb/MyBreadcrumb";
-import PageTitle from "@/components/atoms/PageTitle/PageTitle";
 import { useModulesApiContext } from "@/context/ModulesApiContext/ModulesApiContext";
 import modulesStore from "@/zustand/modules.store";
 import Link from "next/link";
 import { useEffect } from "react";
 
 export default function ModulesContainer() {
-  const { fetch_get_modules }: any = useModulesApiContext();
+  const { fetch_get_modules, seasonTitle }: any = useModulesApiContext();
   const { modules } = modulesStore((state) => state);
   const breadcrumbs: IMyBreadcrumb = {
-    mainPage: "Seasons",
+    mainPage: "Modules",
     links: [
-      { link: "/", label: "Seasons" },
-      { link: "/", label: "Modules" },
+      { link: "/", label: seasonTitle },
+      { link: "#", label: "Modules" },
     ],
   };
   useEffect(() => {

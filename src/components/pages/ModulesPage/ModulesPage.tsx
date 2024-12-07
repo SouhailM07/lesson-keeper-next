@@ -9,7 +9,7 @@ export default function ModulesPage({
   seasonId: string;
 }) {
   return (
-    <ModulesApiContextProvider seasonId={seasonId}>
+    <ModulesApiContextProvider seasonId={seasonId} seasonTitle={seasonTitle}>
       <ModulesContainer />
     </ModulesApiContextProvider>
   );
