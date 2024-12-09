@@ -6,7 +6,7 @@ html {
   @apply text-[20px];
 }
 .section-container {
-  @apply space-y-3 h-[25rem] py-[1rem] px-[2rem];
+  @apply space-y-3 min-h-[25rem] py-[1rem] px-[2rem];
 }
 
 .inline_lessons {

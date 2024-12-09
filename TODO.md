@@ -6,29 +6,13 @@ Project Description
 
 ### Todo
 
-- [ ] add searching ability in lessons  
-- [ ] add bread crumb  
-- [ ] try to add data all at once then navigate them to avoid using api for searching  
-- [ ] add counter to navbar data  
-- [ ] clear console.logs  
-- [ ] add a reseter for zustand stores when entering diffrent pages  
-- [ ] add initial dates to create new season  
-- [ ] reduce the seasons size  
-- [ ] project road map  
-- [ ] clean the code  
+- [ ] add a text scroll animations or dots to module render item and lessons render item  
+- [ ] check in File Type enums are been using correctly  
+- [ ] add lessons view mode to a global state to switch rendering elements later  
 
 ### In Progress
 
-- [ ] add animations  
 
 ### Done ✓
 
-- [x] new design for module container  
-- [x] add toasters  
-- [x] add motion btn switch  
-- [x] add warnings and close dialog to modules  
-- [x] add warnings and close dialog to lessons  
-- [x] make switch component for plus button  
-- [x] move the clerk btn to sidebar  
-- [x] add a closer to season create form  
 
