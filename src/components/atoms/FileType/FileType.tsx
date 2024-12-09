@@ -17,6 +17,10 @@ export default function FileType({ fileType }: { fileType: fileTypes_e }) {
         return (
           <div className="bg-green-500 text-white fileTypeBlock">Video</div>
         );
+      case fileTypes_e[
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      ]:
+        return <div className="bg-blue-500 text-white fileTypeBlock">Word</div>;
       default:
         return <div>unknown type</div>;
     }

@@ -18,7 +18,7 @@ export default function ModuleRenderItem({
       <Link href={`/module/${title}/${id}`}>
         <button className="border-2 flex flex-col px-[1.2rem] py-3 justify-between items-center  border-gray-600 h-[9rem] rounded-md aspect-video">
           <div className="flex flex-col items-start gap-y-3 w-full h-[4rem]">
-            <h1 className="text-[1.7rem] font-medium ">{title}</h1>
+            <h1 className="text-[1.3rem] font-medium ">{title}</h1>
             <span>Lessons : {lessonLen}</span>
           </div>
           <p className="text-gray-600 text-[0.8rem] ">{mentor_name}</p>
