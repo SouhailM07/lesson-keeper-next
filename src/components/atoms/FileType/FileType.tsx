@@ -4,6 +4,7 @@ export enum fileTypes_e {
   "image/jpeg" = "Image",
   "application/pdf" = "Pdf",
   "video/mp4" = "Video",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = "Word",
 }
 
 export default function FileType({ fileType }: { fileType: fileTypes_e }) {
