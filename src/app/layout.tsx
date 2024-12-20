@@ -23,9 +23,9 @@ export default function RootLayout({ children }) {
         <body className={poppins.className}>
           <Loading />
           <div id="main-container">
-            <DontRenderWhen route={["/signIn"]}>
-              <Navbar />
-            </DontRenderWhen>
+            {/* <DontRenderWhen route={["/signIn"]}> */}
+            {/* <Navbar /> */}
+            {/* </DontRenderWhen> */}
             {children}
           </div>
           <DontRenderWhen route={["/signIn"]}>
