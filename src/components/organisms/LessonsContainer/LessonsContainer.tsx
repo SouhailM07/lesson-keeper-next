@@ -14,6 +14,7 @@ import lessonsStore from "@/zustand/lessons.store";
 import {
   faArrowRight,
   faList,
+  faSearch,
   faTableCells,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -24,7 +25,7 @@ export default function LessonsContainer() {
   const router = useRouter();
   const { lessons } = lessonsStore((state) => state);
   const { fetch_get_lessons }: any = useLessonApiContext();
-
+  const [lessonsSearch, setLessonsSearch] = useState<string>("");
   const [orderOption, setOrderOption] = useState<number>(0);
 
   const OrderOptions = ["inline_lessons", "table_lessons"];
@@ -44,34 +45,47 @@ export default function LessonsContainer() {
   };
   return (
     <section className="section-container">
-      <article className="flexBetween">
+      <article className="flexBetween ">
         <MyBreadcrumb {...breadcrumbs} />
-        <MyButton
-          onClick={() => router.back()}
-          icon={faArrowRight}
-          buttonType={MyButtonTypes_e.WithIcon}
-          className="bg-gray-300"
-        >
-          Back
-        </MyButton>
+      </article>
+      <article className="flex justify-between items-center border border-gray-300 rounded-sm p-2">
+        <div className="rounded-md flex items-center border border-gray-300 w-[80%] h-[2.3rem]">
+          <input
+            placeholder="Enter the lesson name"
+            className="w-full rounded-md outline-none self-stretch indent-[1rem]"
+            value={lessonsSearch}
+            onChange={(e) => setLessonsSearch(e.target.value)}
+          />
+          <FontAwesomeIcon icon={faSearch} className="p-2" />
+        </div>
+        <div className="min-w-[7rem] text-center">
+          Lessons : <span>{lessons.length}</span>
+        </div>
+        <LessonsLayout setOrderOption={setOrderOption} />
       </article>
 
-      <div className="flex justify-end">
-        <div className="border border-black text-[1.2rem] w-[5rem] justify-center rounded-sm h-[2rem] flex gap-x-[1rem] items-center">
-          <FontAwesomeIcon
-            icon={faTableCells}
-            onClick={() => setOrderOption(0)}
-          />
-          <FontAwesomeIcon icon={faList} onClick={() => setOrderOption(1)} />
-        </div>
-      </div>
-
       <div className={`mx-auto max-w-[50rem] ${OrderOptions[orderOption]}`}>
-        {lessons.map((e, i) => (
-          <LessonRenderItem key={i} {...e} />
-        ))}
+        {lessons
+          .filter((e) => e.name.includes(lessonsSearch))
+          .map((e, i) => (
+            <LessonRenderItem key={i} {...e} />
+          ))}
         <AddNewItem addNew={AddNew_e.Lesson} />
       </div>
     </section>
   );
 }
+
+const LessonsLayout = ({ setOrderOption }) => {
+  return (
+    <div className="flex justify-end">
+      <div className="border border-gray-300 text-[1.2rem] w-[5rem] justify-center rounded-sm h-[2.3rem] flex gap-x-[1rem] items-center">
+        <FontAwesomeIcon
+          icon={faTableCells}
+          onClick={() => setOrderOption(0)}
+        />
+        <FontAwesomeIcon icon={faList} onClick={() => setOrderOption(1)} />
+      </div>
+    </div>
+  );
+};

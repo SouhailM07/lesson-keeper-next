@@ -19,7 +19,7 @@ export interface IMyBreadcrumb {
 
 export default function MyBreadcrumb({ mainPage, links }: IMyBreadcrumb) {
   return (
-    <Breadcrumb className="mb-[1rem]">
+    <Breadcrumb className="">
       <BreadcrumbList className="text-[1.1rem]">
         <MyBreadcrumbRenderItem mainPage={mainPage} links={links} />
       </BreadcrumbList>
