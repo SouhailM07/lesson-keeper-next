@@ -1,7 +1,13 @@
 import { clerkMiddleware } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
-export default clerkMiddleware();
+export default clerkMiddleware(
+  (auth, req) => {
+    // Add your middleware checks
+  },
+  { debug: true }
+);
+
 export function middleware() {
   const res = NextResponse.next();
 
