@@ -4,18 +4,22 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { ReactNode } from "react";
+import { HTMLAttributes, ReactElement, ReactNode } from "react";
 
-interface IMyPopover {
-  triggerLabel: string;
+interface IMyPopover extends HTMLAttributes<HTMLDivElement> {
+  triggerLabel: string | ReactElement;
   children: ReactNode;
 }
 
-export default function MyPopover({ triggerLabel, children }: IMyPopover) {
+export default function MyPopover({
+  triggerLabel,
+  children,
+  ...props
+}: IMyPopover) {
   return (
     <Popover>
       <PopoverTrigger>{triggerLabel}</PopoverTrigger>
-      <PopoverContent>{children}</PopoverContent>
+      <PopoverContent {...props}>{children}</PopoverContent>
     </Popover>
   );
 }
