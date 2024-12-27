@@ -1,6 +1,9 @@
 "use client";
 
 import AddNewItem, { AddNew_e } from "@/components/atoms/AddNewItem/AddNewItem";
+import FUNC_BUTTON, {
+  FUNC_BUTTON_e,
+} from "@/components/atoms/FUNC_BUTTON/FUNC_BUTTON";
 import LessonRenderItem from "@/components/atoms/LessonRenderItem/LessonRenderItem";
 import MyBreadcrumb, {
   IMyBreadcrumb,
@@ -48,9 +51,7 @@ export default function LessonsContainer() {
       <div className="p-3 space-y-[1rem]">
         <article className="flexBetween ">
           <MyBreadcrumb {...breadcrumbs} />
-          <button className="bg-black text-white px-4 py-2 rounded-sm">
-            Back
-          </button>
+          <FUNC_BUTTON buttonType={FUNC_BUTTON_e.Back} />
         </article>
         <LessonsTopPanel
           {...{ lessonsSearch, setLessonsSearch, lessons, setOrderOption }}

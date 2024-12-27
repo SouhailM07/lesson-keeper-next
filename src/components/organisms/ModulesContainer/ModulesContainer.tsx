@@ -1,12 +1,14 @@
 "use client";
 import AddNewItem, { AddNew_e } from "@/components/atoms/AddNewItem/AddNewItem";
+import FUNC_BUTTON, {
+  FUNC_BUTTON_e,
+} from "@/components/atoms/FUNC_BUTTON/FUNC_BUTTON";
 import ModuleRenderItem from "@/components/atoms/ModuleRenderItem/ModuleRenderItem";
 import MyBreadcrumb, {
   IMyBreadcrumb,
 } from "@/components/atoms/MyBreadcrumb/MyBreadcrumb";
 import { useModulesApiContext } from "@/context/ModulesApiContext/ModulesApiContext";
 import modulesStore from "@/zustand/modules.store";
-import Link from "next/link";
 import { useEffect } from "react";
 
 export default function ModulesContainer() {
@@ -26,7 +28,7 @@ export default function ModulesContainer() {
     <section className="section-container">
       <article className="flexBetween">
         <MyBreadcrumb {...breadcrumbs} />
-        <Link href="/">back</Link>
+        <FUNC_BUTTON buttonType={FUNC_BUTTON_e.Back} />
       </article>
       <ul className="flex gap-[1rem] flex-wrap">
         {modules.map((e, i) => (
