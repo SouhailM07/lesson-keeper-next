@@ -44,27 +44,32 @@ export default function LessonsContainer() {
     ],
   };
   return (
-    <section className="section-container">
-      <article className="flexBetween ">
-        <MyBreadcrumb {...breadcrumbs} />
-      </article>
-      <article className="flex justify-between items-center border border-gray-300 rounded-sm p-2">
-        <div className="rounded-md flex items-center border border-gray-300 w-[80%] h-[2.3rem]">
-          <input
-            placeholder="Enter the lesson name"
-            className="w-full rounded-md outline-none self-stretch indent-[1rem]"
-            value={lessonsSearch}
-            onChange={(e) => setLessonsSearch(e.target.value)}
-          />
-          <FontAwesomeIcon icon={faSearch} className="p-2" />
-        </div>
-        <div className="min-w-[7rem] text-center">
-          Lessons : <span>{lessons.length}</span>
-        </div>
-        <LessonsLayout setOrderOption={setOrderOption} />
-      </article>
+    <section className="">
+      <div className="p-3 space-y-[1rem]">
+        <article className="flexBetween ">
+          <MyBreadcrumb {...breadcrumbs} />
+          <button className="bg-black text-white px-4 py-2 rounded-sm">
+            Back
+          </button>
+        </article>
+        <article className=" flex justify-between items-center border border-gray-300 rounded-sm p-2">
+          <div className="flex-row-reverse rounded-md flex items-center border border-gray-300 w-[80%] h-[2.3rem]">
+            <input
+              placeholder="Enter the lesson name"
+              className="w-full rounded-md outline-none self-stretch indent-[1rem]"
+              value={lessonsSearch}
+              onChange={(e) => setLessonsSearch(e.target.value)}
+            />
+            <FontAwesomeIcon icon={faSearch} className="p-2" />
+          </div>
+          <div className="min-w-[7rem] text-center">
+            Lessons : <span>{lessons.length}</span>
+          </div>
+          <LessonsLayout setOrderOption={setOrderOption} />
+        </article>
+      </div>
 
-      <div className={`mx-auto max-w-[50rem] ${OrderOptions[orderOption]}`}>
+      <div className={`px-[2rem] mx-auto ${OrderOptions[orderOption]}`}>
         {lessons
           .filter((e) => e.name.includes(lessonsSearch))
           .map((e, i) => (
