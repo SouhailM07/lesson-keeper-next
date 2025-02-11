@@ -30,9 +30,7 @@ export default function SeasonsProvider({ children }) {
   let fetch_get_seasons = async (): Promise<void> => {
     try {
       editLoading(true);
-      let results = await axios.get(
-        `${API_APP_URL}/api/seasons?userId=${user?.id}`
-      );
+      let results = await axios.get(`${API_APP_URL}/api/seasons`);
       editSeasons(results.data);
       editLoading(false);
     } catch (error) {

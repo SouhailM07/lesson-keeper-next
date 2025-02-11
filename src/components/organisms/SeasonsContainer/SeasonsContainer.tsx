@@ -24,7 +24,7 @@ export default function SeasonsContainer() {
     console.log("check render [SeasonsContainer]");
   }, [user]);
 
-  if (!isSignedIn) return <NotSigned />;
+  // if (!isSignedIn) return <NotSigned />;
   // links label link / main page
   const breadcrumbs: IMyBreadcrumb = {
     mainPage: "Seasons",
