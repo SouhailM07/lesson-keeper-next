@@ -46,6 +46,7 @@ html {
   @apply text-[20px];
 }
 body {
+  width: calc(100% - 4.5rem);
   @apply bg-[url('../../public/lessons-keeper-pc.webp')];
 }
 
@@ -71,10 +72,6 @@ body {
 
 .new-h-screen {
   height: calc(100vh - 3.8rem);
-}
-
-#main-container {
-  width: calc(100% - 4.5rem);
 }
 
 .b {

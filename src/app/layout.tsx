@@ -3,10 +3,9 @@ import { Poppins } from "next/font/google";
 import MySidebar from "@/components/organisms/MySidebar/MySidebar";
 import { ClerkProvider } from "@clerk/nextjs";
 import DontRenderWhen from "@/components/atoms/DontRenderWhen/DontRenderWhen";
-import Navbar from "@/components/organisms/Navbar/Navbar";
 import Loading from "@/components/atoms/Loading/Loading";
 import { Toaster } from "@/components/ui/toaster";
-// import SnowfallBackground from "@/components/organisms/SnowfallBackground/SnowfallBackground";
+import SnowfallBackground from "@/components/organisms/SnowfallBackground/SnowfallBackground";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -23,13 +22,8 @@ export default function RootLayout({ children }) {
       <html lang="en">
         <body className={poppins.className}>
           <Loading />
-          <div id="main-container">
-            {/* <DontRenderWhen route={["/signIn"]}> */}
-            {/* <Navbar /> */}
-            {/* </DontRenderWhen> */}
-            {/* <SnowfallBackground /> */}
-            {children}
-          </div>
+          <SnowfallBackground />
+          {children}
           <DontRenderWhen route={["/signIn"]}>
             <MySidebar />
           </DontRenderWhen>
