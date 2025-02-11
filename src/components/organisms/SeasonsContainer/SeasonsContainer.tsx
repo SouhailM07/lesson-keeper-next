@@ -14,15 +14,13 @@ import MyBreadcrumb, {
 } from "@/components/atoms/MyBreadcrumb/MyBreadcrumb";
 
 export default function SeasonsContainer() {
-  const { isSignedIn } = useAuth();
-  const { user } = useUser();
   const { seasons } = seasonsStore((state) => state);
   const { fetch_get_seasons }: any = useSeasonsContext();
 
   useEffect(() => {
-    user?.id && fetch_get_seasons(user.id);
+    fetch_get_seasons();
     console.log("check render [SeasonsContainer]");
-  }, [user]);
+  }, []);
 
   // if (!isSignedIn) return <NotSigned />;
   // links label link / main page

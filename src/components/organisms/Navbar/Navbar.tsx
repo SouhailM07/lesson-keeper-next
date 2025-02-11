@@ -1,3 +1,4 @@
+import CounterUp from "@/components/atoms/CounterUp/CounterUp";
 import axios from "axios";
 
 export default async function Navbar() {
@@ -27,7 +28,7 @@ export default async function Navbar() {
             <li key={i}>
               <span>{e.label} : </span>
               <span style={{ textShadow: "0px 0px 3px  white" }} className="">
-                {e.value}
+                <CounterUp end={e.value} />
               </span>
             </li>
           ))}
