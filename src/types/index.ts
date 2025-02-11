@@ -7,14 +7,10 @@ export interface formFieldRenderItem_t
   formLabel: string;
 }
 
-interface ResponseMessage {
-  msg: string;
-  status: number;
-}
-
-export interface ResponseMessages {
-  not_found: ResponseMessage;
-  create_item: ResponseMessage;
-  update_item: ResponseMessage;
-  delete_item: ResponseMessage;
+export interface ApiMessages {
+  [key: string]: [string, number];
+  create_item: [string, number];
+  update_item: [string, number];
+  delete_item: [string, number];
+  not_found: [string, number];
 }

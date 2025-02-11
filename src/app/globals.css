@@ -2,11 +2,60 @@
 @tailwind components;
 @tailwind utilities;
 
+#card {
+  isolation: isolate;
+  overflow: hidden;
+  position: relative;
+  border-radius: 10px;
+}
+#card::before,
+#card::after {
+  content: "";
+  position: absolute;
+  border-radius: 10px;
+}
+
+#card::before {
+  z-index: -2;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: conic-gradient(
+    yellow 0deg,
+    transparent 60deg,
+    transparent 180deg,
+    yellow 180deg,
+    transparent 240deg
+  );
+  animation: borderanimation 4s linear infinite;
+}
+
+#card::after {
+  --inset: 4px;
+  background: #111;
+  inset: var(--inset);
+  /* border-radius: calc(var(--border-radius) - var(--inset)); */
+  z-index: -1;
+}
+@keyframes borderanimation {
+  to {
+    transform: rotate(-360deg);
+  }
+}
 html {
   @apply text-[20px];
 }
+body {
+  @apply bg-[url('../../public/lessons-keeper-pc.webp')];
+}
+
+.bgBlur {
+  backdrop-filter: blur(4px);
+  @apply bg-primaryTransparent;
+}
+
 .section-container {
-  @apply space-y-3 min-h-[25rem] py-[1rem] px-[2rem];
+  @apply space-y-3 min-h-[25rem] py-[1rem] px-[1.2rem];
 }
 
 .inline_lessons {

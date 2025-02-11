@@ -49,7 +49,7 @@ export default function MySidebar() {
     <div
       className={`border ${
         toggleSidebar ? "w-[14rem]" : "w-[4.5rem]"
-      } duration-300 ease-in-out z-[10] bg-white fixed right-0 h-screen top-0  p-[0.5rem] `}
+      } duration-300 ease-in-out z-[10] bg-primaryTransparent fixed right-0 h-screen top-0  p-[0.5rem] `}
     >
       <ul
         className={`flex flex-col ${

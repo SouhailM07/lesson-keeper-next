@@ -22,9 +22,9 @@ export default function SeasonRenderItem({
     useSeasonsContext();
 
   return (
-    <div className="flex flex-col">
+    <div id="card" className="flex flex-col rounded-md  text-white">
       <Link onClick={reset_module_store} href={`season/${title}/${id}`}>
-        <button className="border-2 flex flex-col px-[1.2rem] py-3 justify-between items-center  border-gray-600 h-[9rem] rounded-md aspect-video">
+        <button className=" flex flex-col px-[1.2rem] py-3 justify-between items-center h-[8.8rem] rounded-md aspect-video drop-shadow-lg">
           <div className="flexBetween w-full h-[4rem] px-4">
             <h1 className="text-[1.7rem] font-medium ">{title}</h1>
             <div className="flex text-start flex-col">
@@ -32,7 +32,7 @@ export default function SeasonRenderItem({
               <span>Lessons : {modulesLen}</span>
             </div>
           </div>
-          <p className="text-gray-600 text-[0.8rem] ">{duration}</p>
+          <p className="text-[#00e0ff] text-[0.8rem] ">{duration}</p>
         </button>
       </Link>
       <MyDialog

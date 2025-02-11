@@ -11,6 +11,7 @@ import LessonsForm from "@/components/molecules/LessonsForm/LessonsForm";
 import { useLessonApiContext } from "@/context/LessonsApiContext/LessonsApiContext";
 import FileType, { fileTypes_e } from "../FileType/FileType";
 import MyPopover from "../MyPopover/MyPopover";
+import lessons_layout_store from "@/zustand/lessons_layout.store";
 
 export default function LessonRenderItem({ name, _id, file }) {
   const { fetch_delete_lesson, handleOnSubmit__Edit }: any =
@@ -20,6 +21,9 @@ export default function LessonRenderItem({ name, _id, file }) {
       <FileType fileType={fileTypes_e[file.fileMimiType]} />
       <div className="p-[1rem] border rounded-sm border-gray-500 h-[2.6rem] flexBetween">
         <p>{name}</p>
+        <LessonControls_1
+          {...{ file, _id, fetch_delete_lesson, handleOnSubmit__Edit }}
+        />
         <LessonControls_2
           {...{ file, _id, fetch_delete_lesson, handleOnSubmit__Edit }}
         />
@@ -29,8 +33,13 @@ export default function LessonRenderItem({ name, _id, file }) {
 }
 
 const LessonControls_1 = (props) => {
+  const { lessons_layout } = lessons_layout_store();
   return (
-    <div className="flex items-center gap-x-[1.5rem] text-[1.1rem]">
+    <div
+      className={`${
+        lessons_layout == 1 ? "flex" : "hidden"
+      } max-lg:hidden  items-center gap-x-[1.5rem] text-[1.1rem]`}
+    >
       <a href={props.file.filePreview} target="__blank">
         <FontAwesomeIcon icon={faEye} />
       </a>
@@ -55,45 +64,50 @@ const LessonControls_1 = (props) => {
 };
 
 const LessonControls_2 = (props) => {
+  const { lessons_layout } = lessons_layout_store();
   return (
-    <MyPopover
-      className="w-[10rem] translate-x-[-4rem]"
-      triggerLabel={<FontAwesomeIcon icon={faEllipsisVertical} />}
+    <div
+      className={`${lessons_layout == 0 ? "block" : "lg:hidden"} max-lg:block`}
     >
-      <div className="flex flex-col gap-y-[0.7rem]">
-        <a
-          className="grid grid-cols-[2rem_1fr] items-center"
-          href={props.file.filePreview}
-          target="__blank"
-        >
-          <FontAwesomeIcon icon={faEye} />
-          <span>Preview </span>
-        </a>
-        <a
-          className="grid grid-cols-[2rem_1fr] items-center"
-          href={props.file.fileUrl}
-        >
-          <FontAwesomeIcon icon={faDownload} />
-          <span>Download </span>
-        </a>
-        <MyDialog
-          title="Edit Lesson"
-          trigger={
-            <button className="text-start grid grid-cols-[2rem_1fr] items-center">
-              <FontAwesomeIcon role="button" icon={faGear} />
-              <span>Edit Lesson</span>
-            </button>
-          }
-        >
-          <LessonsForm
-            itemId={props._id}
-            fileId={props.file.fileId}
-            handleOnSubmit={props.handleOnSubmit__Edit}
-            handleDelete={props.fetch_delete_lesson}
-            defaultValues={{ name, file: props.file.fileUrl }}
-          />
-        </MyDialog>
-      </div>
-    </MyPopover>
+      <MyPopover
+        className="w-[10rem] translate-x-[-4rem]"
+        triggerLabel={<FontAwesomeIcon icon={faEllipsisVertical} />}
+      >
+        <div className="flex flex-col gap-y-[0.7rem]">
+          <a
+            className="grid grid-cols-[2rem_1fr] items-center"
+            href={props.file.filePreview}
+            target="__blank"
+          >
+            <FontAwesomeIcon icon={faEye} />
+            <span>Preview </span>
+          </a>
+          <a
+            className="grid grid-cols-[2rem_1fr] items-center"
+            href={props.file.fileUrl}
+          >
+            <FontAwesomeIcon icon={faDownload} />
+            <span>Download </span>
+          </a>
+          <MyDialog
+            title="Edit Lesson"
+            trigger={
+              <button className="text-start grid grid-cols-[2rem_1fr] items-center">
+                <FontAwesomeIcon role="button" icon={faGear} />
+                <span>Edit Lesson</span>
+              </button>
+            }
+          >
+            <LessonsForm
+              itemId={props._id}
+              fileId={props.file.fileId}
+              handleOnSubmit={props.handleOnSubmit__Edit}
+              handleDelete={props.fetch_delete_lesson}
+              defaultValues={{ name, file: props.file.fileUrl }}
+            />
+          </MyDialog>
+        </div>
+      </MyPopover>
+    </div>
   );
 };

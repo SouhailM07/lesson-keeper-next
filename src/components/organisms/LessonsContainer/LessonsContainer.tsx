@@ -14,24 +14,24 @@ import MyButton, {
 import { useLessonApiContext } from "@/context/LessonsApiContext/LessonsApiContext";
 import { useModulesApiContext } from "@/context/ModulesApiContext/ModulesApiContext";
 import lessonsStore from "@/zustand/lessons.store";
+import lessons_layout_store from "@/zustand/lessons_layout.store";
 import {
   faArrowRight,
   faList,
   faSearch,
   faTableCells,
+  IconDefinition,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function LessonsContainer() {
-  const router = useRouter();
   const { lessons } = lessonsStore((state) => state);
   const { fetch_get_lessons }: any = useLessonApiContext();
   const [lessonsSearch, setLessonsSearch] = useState<string>("");
-  const [orderOption, setOrderOption] = useState<number>(0);
-
-  const OrderOptions = ["inline_lessons", "table_lessons"];
+  const { lessons_layout, edit_lessons_layout } = lessons_layout_store();
+  const OrderOptions = { 1: "inline_lessons", 0: "table_lessons" };
 
   useEffect(() => {
     fetch_get_lessons();
@@ -54,12 +54,12 @@ export default function LessonsContainer() {
           <FUNC_BUTTON buttonType={FUNC_BUTTON_e.Back} />
         </article>
         <LessonsTopPanel
-          {...{ lessonsSearch, setLessonsSearch, lessons, setOrderOption }}
+          {...{ lessonsSearch, setLessonsSearch, lessons, edit_lessons_layout }}
         />
       </div>
 
       <div
-        className={`px-[2rem] pb-[1rem] mx-auto ${OrderOptions[orderOption]}`}
+        className={`px-[2rem] pb-[1rem] mx-auto ${OrderOptions[lessons_layout]}`}
       >
         {lessons
           .filter((e) => e.name.includes(lessonsSearch))
@@ -72,26 +72,32 @@ export default function LessonsContainer() {
   );
 }
 
-const LessonsLayout = ({ setOrderOption }) => {
+const LessonsLayout = () => {
+  const { lessons_layout, edit_lessons_layout } = lessons_layout_store();
+  const lessons_layout_data: { icon: IconDefinition; handler: () => void }[] = [
+    { icon: faTableCells, handler: () => edit_lessons_layout(0) },
+    { icon: faList, handler: () => edit_lessons_layout(1) },
+  ];
   return (
     <div className="flex justify-end">
-      <div className="border border-gray-300 text-[1.2rem] w-[5rem] justify-center rounded-sm h-[2.3rem] flex gap-x-[1rem] items-center">
-        <FontAwesomeIcon
-          icon={faTableCells}
-          onClick={() => setOrderOption(0)}
-        />
-        <FontAwesomeIcon icon={faList} onClick={() => setOrderOption(1)} />
-      </div>
+      <ul className="border overflow-hidden border-gray-300 text-[1.2rem] w-[5rem] justify-center rounded-sm h-[2.3rem] flex items-center">
+        {lessons_layout_data.map((e, i) => (
+          <li
+            className={`${
+              i == lessons_layout && "bg-black text-white"
+            } w-full h-full grid place-items-center `}
+            key={i}
+            onClick={e.handler}
+          >
+            <FontAwesomeIcon role="button" icon={e.icon} />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
 
-const LessonsTopPanel = ({
-  lessonsSearch,
-  setLessonsSearch,
-  lessons,
-  setOrderOption,
-}) => {
+const LessonsTopPanel = ({ lessonsSearch, setLessonsSearch, lessons }) => {
   return (
     <article className=" flex justify-between items-center border border-gray-300 rounded-sm p-2">
       <div className="flex-row-reverse rounded-md flex items-center border border-gray-300 w-[80%] h-[2.3rem]">
@@ -106,7 +112,7 @@ const LessonsTopPanel = ({
       <div className="min-w-[7rem] text-center">
         Lessons : <span>{lessons.length}</span>
       </div>
-      <LessonsLayout setOrderOption={setOrderOption} />
+      <LessonsLayout />
     </article>
   );
 };
