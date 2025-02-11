@@ -6,7 +6,7 @@ import DontRenderWhen from "@/components/atoms/DontRenderWhen/DontRenderWhen";
 import Navbar from "@/components/organisms/Navbar/Navbar";
 import Loading from "@/components/atoms/Loading/Loading";
 import { Toaster } from "@/components/ui/toaster";
-import SnowfallBackground from "@/components/organisms/SnowfallBackground/SnowfallBackground";
+// import SnowfallBackground from "@/components/organisms/SnowfallBackground/SnowfallBackground";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
             {/* <DontRenderWhen route={["/signIn"]}> */}
             {/* <Navbar /> */}
             {/* </DontRenderWhen> */}
-            <SnowfallBackground />
+            {/* <SnowfallBackground /> */}
             {children}
           </div>
           <DontRenderWhen route={["/signIn"]}>

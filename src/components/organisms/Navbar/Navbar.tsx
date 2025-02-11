@@ -1,12 +1,22 @@
-export default function Navbar() {
+import axios from "axios";
+
+export default async function Navbar() {
+  let itemsCounts = await axios
+    .get("http://localhost:3000/api/counter")
+    .then((res) => res.data)
+    .catch((err) => {
+      console.log(err);
+      return { lessons: 0, modules: 0, seasons: 0 };
+    });
+
   interface ISchoolData {
     label: string;
     value: number;
   }
   const schoolData: ISchoolData[] = [
-    { label: "Seasons", value: 0 },
-    { label: "Modules", value: 0 },
-    { label: "Lessons", value: 0 },
+    { label: "Seasons", value: itemsCounts.seasons },
+    { label: "Modules", value: itemsCounts.modules },
+    { label: "Lessons", value: itemsCounts.lessons },
   ];
   return (
     <header className="sticky top-0 bgBlur text-white h-[3.6rem] px-[1rem] ">
@@ -16,7 +26,9 @@ export default function Navbar() {
           {schoolData.map((e, i) => (
             <li key={i}>
               <span>{e.label} : </span>
-              <span>{e.value}</span>
+              <span style={{ textShadow: "0px 0px 3px  white" }} className="">
+                {e.value}
+              </span>
             </li>
           ))}
         </ul>
