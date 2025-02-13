@@ -1,24 +1,17 @@
 import CounterUp from "@/components/atoms/CounterUp/CounterUp";
-import { API_APP_URL } from "@/lib/constants";
-import axios from "axios";
+import apiGet from "@/lib/apiGet";
 
 export default async function Navbar() {
-  let itemsCounts = await axios
-    .get(`${API_APP_URL}/api/counter`)
-    .then((res) => res.data)
-    .catch((err) => {
-      console.log(err);
-      return { lessons: 0, modules: 0, seasons: 0 };
-    });
+  let itemsCounts = await apiGet("counter");
 
   interface ISchoolData {
     label: string;
     value: number;
   }
   const schoolData: ISchoolData[] = [
-    { label: "Seasons", value: itemsCounts.seasons },
-    { label: "Modules", value: itemsCounts.modules },
-    { label: "Lessons", value: itemsCounts.lessons },
+    { label: "Seasons", value: itemsCounts.seasons || 0 },
+    { label: "Modules", value: itemsCounts.modules || 0 },
+    { label: "Lessons", value: itemsCounts.lessons || 0 },
   ];
   return (
     <header className="sticky top-0 bgBlur text-white h-[3.6rem] px-[1rem] ">

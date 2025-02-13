@@ -8,12 +8,12 @@ import MyBreadcrumb, {
   IMyBreadcrumb,
 } from "@/components/atoms/MyBreadcrumb/MyBreadcrumb";
 import { useModulesApiContext } from "@/context/ModulesApiContext/ModulesApiContext";
-import modulesStore from "@/zustand/modules.store";
-import { useEffect } from "react";
+// import modulesStore from "@/zustand/modules.store";
+// import { useEffect } from "react";
 
-export default function ModulesContainer() {
-  const { fetch_get_modules, seasonTitle }: any = useModulesApiContext();
-  const { modules } = modulesStore((state) => state);
+export default function ModulesContainer({ moduleData }) {
+  const { seasonTitle }: any = useModulesApiContext();
+  // const { modules } = modulesStore((state) => state);
   const breadcrumbs: IMyBreadcrumb = {
     mainPage: "Modules",
     links: [
@@ -21,17 +21,17 @@ export default function ModulesContainer() {
       { link: "#", label: "Modules" },
     ],
   };
-  useEffect(() => {
-    fetch_get_modules();
-  }, []);
+  // useEffect(() => {
+  // fetch_get_modules();
+  // }, []);
   return (
     <section className="section-container">
       <article className="flexBetween">
         <MyBreadcrumb {...breadcrumbs} />
         <FUNC_BUTTON buttonType={FUNC_BUTTON_e.Back} />
       </article>
-      <ul className="flex gap-[1rem] flex-wrap">
-        {modules.map((e, i) => (
+      <ul role="list" className="flex gap-[1rem] flex-wrap">
+        {moduleData.map((e, i) => (
           <ModuleRenderItem
             title={e.name}
             mentor_name={e.mentor_name}
