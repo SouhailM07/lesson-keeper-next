@@ -13,14 +13,14 @@ import MyBreadcrumb, {
   IMyBreadcrumb,
 } from "@/components/atoms/MyBreadcrumb/MyBreadcrumb";
 
-export default function SeasonsContainer() {
-  const { seasons } = seasonsStore((state) => state);
-  const { fetch_get_seasons }: any = useSeasonsContext();
+export default function SeasonsContainer({ seasonsData }) {
+  // const { seasons } = seasonsStore((state) => state);
+  // const { fetch_get_seasons }: any = useSeasonsContext();
 
-  useEffect(() => {
-    fetch_get_seasons();
-    console.log("check render [SeasonsContainer]");
-  }, []);
+  // useEffect(() => {
+  // fetch_get_seasons();
+  // console.log("check render [SeasonsContainer]");
+  // }, []);
 
   // if (!isSignedIn) return <NotSigned />;
   // links label link / main page
@@ -33,7 +33,7 @@ export default function SeasonsContainer() {
       {/* <PageTitle title="Seasons" /> */}
       <MyBreadcrumb {...breadcrumbs} />
       <ul className="flex gap-[1rem] flex-wrap ">
-        {seasons.map((e, i) => (
+        {seasonsData.map((e, i) => (
           <li key={i}>
             <SeasonRenderItem
               id={e._id}

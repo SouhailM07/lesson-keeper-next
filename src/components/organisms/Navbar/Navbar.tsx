@@ -1,9 +1,10 @@
 import CounterUp from "@/components/atoms/CounterUp/CounterUp";
+import { API_APP_URL } from "@/lib/constants";
 import axios from "axios";
 
 export default async function Navbar() {
   let itemsCounts = await axios
-    .get("http://localhost:3000/api/counter")
+    .get(`${API_APP_URL}/api/counter`)
     .then((res) => res.data)
     .catch((err) => {
       console.log(err);
